@@ -1,0 +1,32 @@
+{
+    "name":            "dtable",
+    "version":         "0.1.0",
+    "description":     "Data Table Plugin",
+    "keywords":        [
+        "jquery-plugin"
+    ],
+    "homepage":        "https://github.com/kubanka-peter/dtable",
+    "bugs":            "",
+    "author":          {
+        "name":  "Kubi",
+        "email": "kubanka.peter gmail.com",
+        "url":   "https://github.com/kubanka-peter"
+    },
+    "repository":      {
+        "type": "git",
+        "url":  "https://github.com/kubanka-peter/dtable.git"
+    },
+    "licenses":        [
+        {
+            "type": "MIT"
+        }
+    ],
+    "devDependencies": {
+        "grunt":                 "latest",
+        "grunt-contrib-watch":   "latest",
+        "grunt-contrib-uglify":  "latest",
+        "grunt-contrib-copy":    "latest",
+        "grunt-contrib-connect": "latest",
+        "grunt-contrib-clean":   "latest"
+    }
+}

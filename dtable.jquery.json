@@ -1,0 +1,28 @@
+{
+    "name": "dtable",
+    "title": "Data Table Plugin",
+    "description": "Data table for jQuery",
+    "version": "0.1.0",
+    "homepage": "DTable",
+    "author": {
+        "name": "Kubi",
+        "url": "https://github.com/kubanka-peter"
+    },
+    "repository": {
+        "type": "git",
+        "url": "DTable"
+    },
+    "bugs": "",
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "http://opensource.org/licenses/MIT"
+        }
+    ],
+    "dependencies": {
+        "jquery": "~1.10.2"
+    },
+    "keywords": [
+        "jquery-plugin"
+    ]
+}
