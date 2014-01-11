@@ -234,7 +234,6 @@ var DTableModule = (function(){
                 default:
                     throw "Invalid DTableModule type";
             }
-
         }
     });
 

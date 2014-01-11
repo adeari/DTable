@@ -56,3 +56,10 @@ Load table definition from url. Request is sent with POST or GET and the respons
     }>
 }
 ```
+
+Dev requirements
+================
+
+nodejs, yeoman
+
+after clone, `npm install` and `bower update`

@@ -1,10 +1,10 @@
 (function(DTableModule, $){
 
-    var definition = {};
-
     DTableModule.newModule(DTableModule.MODULE_DEFINITION, "json_url", {
         init: function(options)
         {
+            this.definition = {};
+
             var defaults = {
                 method: "get",
                 url: "",
@@ -14,9 +14,26 @@
 
             this.options = $.extend({}, defaults, options);
         },
-        loading: function(callback){
-
+        getTitle: function()
+        {
+            return this.definition.title;
+        },
+        getColumns: function()
+        {
+            return this.definition.columns;
+        },
+        getPagination: function()
+        {
+            return this.definition.pagination;
+        },
+        search: function()
+        {
+            return this.definition.search;
+        },
+        loading: function(callback)
+        {
             var url = this.options.url;
+            var obj = this;
 
             if (this.options.timestamp)
             {
@@ -30,8 +47,8 @@
                     this.options.data,
                     function(data)
                     {
-                        definition = data;
-                        this.isLoaded = true;
+                        obj.definition = data;
+                        obj.isLoaded = true;
                         callback(data);
                     },
                     "json"
@@ -44,8 +61,8 @@
                     this.options.data,
                     function(data)
                     {
-                        definition = data;
-                        this.isLoaded = true;
+                        obj.definition = data;
+                        obj.isLoaded = true;
                         callback(data);
                     },
                     "json"
