@@ -95,7 +95,7 @@ Requires [Nunjucks](http://jlongster.github.io/nunjucks/)
 Dev requirements
 ================
 
-nodejs, yeoman, php5.4+
+nodejs, yeoman, php5.4+ (for built in server)
 
 after clone, `npm install` and `bower update`
 
