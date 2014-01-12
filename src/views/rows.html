@@ -1,0 +1,7 @@
+{% for row in rows %}
+        <tr>
+            {% for column_name, column in table.columns %}
+                <td>{{ row[column_name] }}</td>
+            {% endfor %}
+        </tr>
+{% endfor %}

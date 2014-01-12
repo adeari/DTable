@@ -6,21 +6,24 @@
  * Copyright (c) 2014 Kubi; Licensed MIT
  */
 
-var DTableModule = (function(){
+var DTableModule = (function () {
     /* Simple JavaScript Inheritance
      * By John Resig http://ejohn.org/
      * http://ejohn.org/blog/simple-javascript-inheritance/
      * MIT Licensed.
      */
     // Inspired by base2 and Prototype
-    var Class = (function(){
-        var initializing = false, fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/;
+    var Class = (function () {
+        var initializing = false, fnTest = /xyz/.test(function () {
+            xyz;
+        }) ? /\b_super\b/ : /.*/;
 
         // The base Class implementation (does nothing)
-        var Class = function(){};
+        var Class = function () {
+        };
 
         // Create a new Class that inherits from this class
-        Class.extend = function(prop) {
+        Class.extend = function (prop) {
             var _super = this.prototype;
 
             // Instantiate a base class (but only create the instance,
@@ -34,8 +37,8 @@ var DTableModule = (function(){
                 // Check if we're overwriting an existing function
                 prototype[name] = typeof prop[name] == "function" &&
                     typeof _super[name] == "function" && fnTest.test(prop[name]) ?
-                    (function(name, fn){
-                        return function() {
+                    (function (name, fn) {
+                        return function () {
                             var tmp = this._super;
 
                             // Add a new ._super() method that is the same method
@@ -56,8 +59,9 @@ var DTableModule = (function(){
             // The dummy class constructor
             function Class() {
                 // All construction is actually done in the init method
-                if ( !initializing && this.init )
+                if (!initializing && this.init) {
                     this.init.apply(this, arguments);
+                }
             }
 
             // Populate our constructed prototype object
@@ -76,22 +80,20 @@ var DTableModule = (function(){
     })();
 
     /**
-     * Base object skeleton to load resource
+     * Base object to load resource
      *
      * @type {*|extend}
      */
     var ResourceLoader = Class.extend({
-        init: function(options)
-        {
-            this.options = options;
-            this.isLoaded = false;
+        isLoaded: false,
+        init:     function (options, dtable) {
         },
-        isLoaded: function(){ return this.isLoaded },
-        loading: function(callback){}
+        loading:  function (callback) {
+        }
     });
 
     /**
-     * Table definition skeleton
+     * Table definition interface
      *
      * @type {*}
      */
@@ -101,9 +103,7 @@ var DTableModule = (function(){
          *
          * @returns {string}
          */
-        getTitle: function()
-        {
-            return "title"
+        getTitle:      function () {
         },
         /**
          * get the columns definition,
@@ -124,11 +124,9 @@ var DTableModule = (function(){
          *
          *
          *
-         * @returns {}
+         * @returns {{}}
          */
-        getColumns: function()
-        {
-            return {};
+        getColumns:    function () {
         },
         /**
          *  get the pagination definition
@@ -142,11 +140,9 @@ var DTableModule = (function(){
          *
          *  if false returned, no pagination used
          *
-         * @returns {}||false
+         * @returns {{}}||false
          */
-        getPagination: function()
-        {
-            return false;
+        getPagination: function () {
         },
         /**
          * get the global search definition
@@ -157,79 +153,81 @@ var DTableModule = (function(){
          *      submit: <string>                    # submit button text
          * }
          *
-         * @returns {boolean}
+         * @returns {{}}
          */
-        search: function()
-        {
-            return false;
+        search:        function () {
         }
 
     });
 
     /**
-     * Template handler skeleton
+     * Template interface
      *
      * @type {*}
      */
     var Template = ResourceLoader.extend({
-        getTableHtml: function(params)
-        {
+        getTableHtml:      function (params) {
             return "none";
         },
-        getRowsHtml: function(params)
-        {
-            return "none";
+        getRowsHtml:       function (params) {
         },
-        getPaginationHtml: function(params)
-        {
-            return "none";
+        getPaginationHtml: function (params) {
+        }
+    });
+
+    /**
+     * Logger interface
+     *
+     * @type {*|extend}
+     */
+    var Logger = Class.extend({
+        error: function (msg) {
+        },
+        info:  function (msg) {
         }
     });
 
     var _modules = [];
 
-    var DTableModule =  Class.extend({
-        init: function()
-        {
+    var DTableModule = Class.extend({
+        init:      function () {
             this.MODULE_TEMPLATE = 0;
             this.MODULE_DEFINITION = 1;
+            this.MODULE_LOGGER = 2;
 
             _modules[this.MODULE_TEMPLATE] = {};
             _modules[this.MODULE_DEFINITION] = {};
+            _modules[this.MODULE_LOGGER] = {};
         },
-        getModule: function(type, name, options)
-        {
-            if (_modules[type] == undefined)
-            {
+        getModule: function (type, name, options, dtable) {
+            if (_modules[type] == undefined) {
                 throw "Invalid DTableModule type";
             }
 
-            if (_modules[type][name] == undefined)
-            {
+            if (_modules[type][name] == undefined) {
                 throw "DTableModule '" + name + "' doesn't exist.";
             }
 
-            return new _modules[type][name](options);
+            return new _modules[type][name](options, dtable);
         },
-        newModule: function(type, name, props)
-        {
-            if (_modules[type] == undefined)
-            {
+        newModule: function (type, name, props) {
+            if (_modules[type] == undefined) {
                 throw "Invalid DTableModule type";
             }
 
-            if (_modules[type][name] != undefined)
-            {
+            if (_modules[type][name] != undefined) {
                 throw "DTableModule " + name + " already exist.";
             }
 
-            switch (type)
-            {
+            switch (type) {
                 case this.MODULE_TEMPLATE:
                     _modules[type][name] = Template.extend(props);
                     break;
                 case this.MODULE_DEFINITION:
                     _modules[type][name] = Definition.extend(props);
+                    break;
+                case this.MODULE_LOGGER:
+                    _modules[type][name] = Logger.extend(props);
                     break;
                 default:
                     throw "Invalid DTableModule type";

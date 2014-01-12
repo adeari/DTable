@@ -8,11 +8,18 @@
 
 (function ($, DTableModule) {
 
-    function DTable(table, options)
-    {
+    function DTable(table, options) {
         var defaults = {
             definition: {
-                name: "json_url",
+                name:    "json_url",
+                options: {}
+            },
+            template:   {
+                name:    "nunjucks",
+                options: {}
+            },
+            logger:     {
+                name:    "default",
                 options: {}
             }
         };
@@ -20,30 +27,37 @@
         this.table = table;
         this.options = $.extend({}, defaults, options);
 
-        this.definition = DTableModule.getModule(DTableModule.MODULE_DEFINITION, this.options.definition.name, this.options.definition.options);
-        this.init();
+        this.definition = DTableModule.getModule(DTableModule.MODULE_DEFINITION, this.options.definition.name, this.options.definition.options, this);
+        this.template = DTableModule.getModule(DTableModule.MODULE_TEMPLATE, this.options.template.name, this.options.template.options, this);
+        this.logger = DTableModule.getModule(DTableModule.MODULE_LOGGER, this.options.logger.name, this.options.logger.options, this);
+
+        this.loading();
     }
 
-    DTable.prototype.init = function()
-    {
-        var def = this.definition;
+    DTable.prototype.loading = function () {
+        var obj = this;
 
-        this.definition.loading(function(data){
-            console.log(def.getTitle());
-        });
+        function allLoaded() {
+            if (obj.definition.isLoaded && obj.template.isLoaded) {
+                obj.logger.info("DTable.loading: resources loaded");
+            }
+        }
+
+        this.logger.info("DTable.loading: start loading resources");
+
+        this.definition.loading(allLoaded);
+        this.template.loading(allLoaded);
     };
 
-    $.fn.dtable = function(options) {
+    $.fn.dtable = function (options) {
 
         var dtable;
 
-        if (!this.data("DTable"))
-        {
+        if (!this.data("DTable")) {
             dtable = new DTable(this, options);
             this.data("DTable", dtable);
         }
-        else
-        {
+        else {
             dtable = this.data("DTable");
         }
 
