@@ -6,7 +6,7 @@
  * Copyright (c) 2014 Kubi; Licensed MIT
  */
 
-var DTableModule = (function () {
+var DTableModule = (function ($) {
     /* Simple JavaScript Inheritance
      * By John Resig http://ejohn.org/
      * http://ejohn.org/blog/simple-javascript-inheritance/
@@ -79,6 +79,11 @@ var DTableModule = (function () {
         return Class;
     })();
 
+    var MODULE_TEMPLATE = 0;
+    var MODULE_DEFINITION = 1;
+    var MODULE_LOGGER = 2;
+    var MODULE_SOURCE = 3;
+
     /**
      * Base object to load resource
      *
@@ -86,18 +91,18 @@ var DTableModule = (function () {
      */
     var ResourceLoader = Class.extend({
         isLoaded: false,
-        init:     function (options, dtable) {
-        },
-        loading:  function (callback) {
-        }
+        init:     function (options, dtable) {},
+        loading:  function (callback) {}
     });
+
+    var _interfaces = {};
 
     /**
      * Table definition interface
      *
      * @type {*}
      */
-    var Definition = ResourceLoader.extend({
+    _interfaces[MODULE_DEFINITION] = ResourceLoader.extend({
         /**
          * get the table title
          *
@@ -165,14 +170,10 @@ var DTableModule = (function () {
      *
      * @type {*}
      */
-    var Template = ResourceLoader.extend({
-        getTableHtml:      function (params) {
-            return "none";
-        },
-        getRowsHtml:       function (params) {
-        },
-        getPaginationHtml: function (params) {
-        }
+    _interfaces[MODULE_TEMPLATE] = ResourceLoader.extend({
+        getTableHtml:      function (params) {},
+        getRowsHtml:       function (params) {},
+        getPaginationHtml: function (params) {}
     });
 
     /**
@@ -180,24 +181,42 @@ var DTableModule = (function () {
      *
      * @type {*|extend}
      */
-    var Logger = Class.extend({
+    _interfaces[MODULE_LOGGER] = Class.extend({
         error: function (msg) {
         },
         info:  function (msg) {
         }
     });
 
+    /**
+     * Source interface
+     *
+     * @type {*}
+     */
+    _interfaces[MODULE_SOURCE] = ResourceLoader.extend({
+        /**
+         * must return the following format:
+         *
+         * {
+         *   <column_id> : <data>,
+         *   ...
+         * }
+         */
+        getRows: function(){}
+    });
+
     var _modules = [];
 
     var DTableModule = Class.extend({
         init:      function () {
-            this.MODULE_TEMPLATE = 0;
-            this.MODULE_DEFINITION = 1;
-            this.MODULE_LOGGER = 2;
+            this.MODULE_TEMPLATE = MODULE_TEMPLATE;
+            this.MODULE_DEFINITION = MODULE_DEFINITION;
+            this.MODULE_LOGGER = MODULE_LOGGER;
+            this.MODULE_SOURCE = MODULE_SOURCE;
 
-            _modules[this.MODULE_TEMPLATE] = {};
-            _modules[this.MODULE_DEFINITION] = {};
-            _modules[this.MODULE_LOGGER] = {};
+            $.each(_interfaces, function(key){
+                _modules[key] = {};
+            });
         },
         getModule: function (type, name, options, dtable) {
             if (_modules[type] == undefined) {
@@ -219,22 +238,10 @@ var DTableModule = (function () {
                 throw "DTableModule " + name + " already exist.";
             }
 
-            switch (type) {
-                case this.MODULE_TEMPLATE:
-                    _modules[type][name] = Template.extend(props);
-                    break;
-                case this.MODULE_DEFINITION:
-                    _modules[type][name] = Definition.extend(props);
-                    break;
-                case this.MODULE_LOGGER:
-                    _modules[type][name] = Logger.extend(props);
-                    break;
-                default:
-                    throw "Invalid DTableModule type";
-            }
+            _modules[type][name] = _interfaces[type].extend(props);
         }
     });
 
     return new DTableModule();
 
-}());
+}(jQuery));

@@ -42,33 +42,21 @@
                 url = url + "?" + new Date().getTime();
             }
 
-            if (this.options.method == "get") {
-                $.get(
-                    url,
-                    this.options.data,
-                    function (data) {
-                        obj.definition = data;
-                        obj.isLoaded = true;
-                        callback(data);
-                    },
-                    "json"
-                ).error(function () {
-                        obj.dtable.logger.error("Can't load definition resource from " + url);
-                    });
+            function success(data) {
+                obj.definition = data;
+                obj.isLoaded = true;
+                obj.dtable.logger.info("json_url.definition: resource is loaded");
+                callback(data);
             }
-            else {
-                $.post(
-                    url,
-                    this.options.data,
-                    function (data) {
-                        obj.definition = data;
-                        obj.isLoaded = true;
-                        callback(data);
-                    },
-                    "json"
-                ).error(function () {
-                        obj.dtable.logger.error("Can't load definition resource from " + url);
-                    });
+
+            function error() {
+                obj.dtable.logger.error("Can't load definition resource from " + url);
+            }
+
+            if (this.options.method == "get") {
+                $.get(url, this.options.data, success, "json").error(error);
+            } else {
+                $.post(url, this.options.data, success, "json").error(error);
             }
         }
     });

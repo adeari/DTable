@@ -21,6 +21,10 @@
             logger:     {
                 name:    "default",
                 options: {}
+            },
+            source: {
+                name: "json_url",
+                options: {}
             }
         };
 
@@ -30,6 +34,7 @@
         this.definition = DTableModule.getModule(DTableModule.MODULE_DEFINITION, this.options.definition.name, this.options.definition.options, this);
         this.template = DTableModule.getModule(DTableModule.MODULE_TEMPLATE, this.options.template.name, this.options.template.options, this);
         this.logger = DTableModule.getModule(DTableModule.MODULE_LOGGER, this.options.logger.name, this.options.logger.options, this);
+        this.source = DTableModule.getModule(DTableModule.MODULE_SOURCE, this.options.source.name, this.options.source.options, this);
 
         this.loading();
     }
@@ -38,7 +43,7 @@
         var obj = this;
 
         function allLoaded() {
-            if (obj.definition.isLoaded && obj.template.isLoaded) {
+            if (obj.definition.isLoaded && obj.template.isLoaded && obj.source.isLoaded) {
                 obj.logger.info("DTable.loading: resources loaded");
             }
         }
@@ -47,6 +52,7 @@
 
         this.definition.loading(allLoaded);
         this.template.loading(allLoaded);
+        this.source.loading(allLoaded);
     };
 
     $.fn.dtable = function (options) {

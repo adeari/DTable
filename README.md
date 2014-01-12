@@ -23,6 +23,10 @@ Options
   * __name__: <string>          # module name
   * __options__: {}             # module options
 
+* **source**: data source
+  * __name__: <string>          # module name
+  * __options__: {}             # module options
+
 Modules
 -------
 
@@ -38,7 +42,7 @@ Load table definition from url. Request is sent with POST or GET and the respons
 ```
     url: <string>               # url to download the json data
     method: <"post"|"get">      # method for request
-    data: {}                    # data to send
+    data: {}                    # extra data to send
     timestamp: <true|false>     # if true, it will add timestamp at the end of the url like: ?121213123
 ```
 
@@ -90,6 +94,16 @@ Requires [Nunjucks](http://jlongster.github.io/nunjucks/)
    **options**
 ``` text
     debug: <true||false>                # in debug mode debug information logged to the console
+```
+
+### Source modules (data source)
+
+**json_url**
+
+    **options**
+``` text
+    url: <string>
+    method: <"post"|"get">
 ```
 
 Dev requirements

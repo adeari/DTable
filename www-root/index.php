@@ -29,6 +29,12 @@
                 options: {
                     debug: true
                 }
+            },
+            source: {
+                name: "json_url",
+                options: {
+                    url: "/source.php"
+                }
             }
         });
     });

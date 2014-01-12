@@ -2,7 +2,7 @@
 
 module.exports = function (grunt)
 {
-    var sourceFiles = ['src/dtable.modules.js', 'src/dtable.jquery.js', 'src/nunjucks.template.js', 'src/json_url.definition.js', 'src/default.logger.js'];
+    var sourceFiles = ['src/dtable.modules.js', 'src/dtable.jquery.js', 'src/*'];
     // Project configuration.
     grunt.initConfig({
         // Metadata.
@@ -40,8 +40,8 @@ module.exports = function (grunt)
             },
             views: {
                 files: [
-                    {expand: true, cwd: 'src/views', src: ['**'], dest: 'www-root/js/<%= pkg.name %>/views'},
-                    {expand: true, cwd: 'src/views', src: ['**'], dest: 'build/views'},
+                    {expand: true, cwd: 'views', src: ['**'], dest: 'www-root/js/<%= pkg.name %>/views'},
+                    {expand: true, cwd: 'views', src: ['**'], dest: 'build/views'},
                 ]
             }
         },
