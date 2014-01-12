@@ -95,6 +95,9 @@ Requires [Nunjucks](http://jlongster.github.io/nunjucks/)
 Dev requirements
 ================
 
-nodejs, yeoman
+nodejs, yeoman, php5.4+
 
 after clone, `npm install` and `bower update`
+
+`grunt build`: build the library
+`grunt server`: start server on http://127.0.0.1:8080

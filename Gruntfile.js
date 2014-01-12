@@ -57,7 +57,7 @@ module.exports = function (grunt)
                 files: ['www-root/**']
             }
         },
-        connect: {
+        php: {
             server: {
                 options: {
                     port: 8080,
@@ -69,12 +69,12 @@ module.exports = function (grunt)
 
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-php');
 
     grunt.registerTask('build', ['clean', 'uglify', 'copy']);
-    grunt.registerTask('server', ['build', 'connect', 'watch']);
+    grunt.registerTask('server', ['build', 'php', 'watch']);
 
     // Default task(s).
     grunt.registerTask('default', ['build']);

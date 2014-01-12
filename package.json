@@ -26,7 +26,7 @@
         "grunt-contrib-watch":   "latest",
         "grunt-contrib-uglify":  "latest",
         "grunt-contrib-copy":    "latest",
-        "grunt-contrib-connect": "latest",
-        "grunt-contrib-clean":   "latest"
+        "grunt-contrib-clean":   "latest",
+        "grunt-php": "latest"
     }
 }
