@@ -39,12 +39,45 @@
         this.loading();
     }
 
+    DTable.prototype.renderTable = function() {
+        var html = this.template.getTableHtml({
+            "title": this.definition.getTitle(),
+            "pagination": this.definition.getPagination(),
+            "search": this.definition.getSearch(),
+            "columns": this.definition.getColumns(),
+            "has_column_filter": this.definition.hasColumnFilter()
+        });
+
+        this.table.html(html);
+    };
+
+    DTable.prototype.renderRows = function() {
+        var html = this.template.getRowsHtml({
+            "rows": this.source.getRows(),
+            "columns": this.definition.getColumns()
+        });
+
+        var table = this.table.find('[data-dtable="table"]');
+
+        if (table.length)
+        {
+            table.html(html)
+        }
+        else
+        {
+            this.logger.error('Can\'t find rows root element [data-dtable="table"]');
+        }
+    };
+
     DTable.prototype.loading = function () {
         var obj = this;
 
         function allLoaded() {
             if (obj.definition.isLoaded && obj.template.isLoaded && obj.source.isLoaded) {
                 obj.logger.info("DTable.loading: resources loaded");
+
+                obj.renderTable();
+                obj.renderRows();
             }
         }
 

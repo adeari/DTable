@@ -1,3 +1,103 @@
+<div class="panel panel-default">
+    {# TITLE #}
+    {% if title %}
+        <div class="panel-heading">
+            <h3 class="panel-title">{{ title }}</h3>
+        </div>
+    {% endif %}
+
+    {# SEARCH & PAGINATION #}
+    {% if (pagination or search) %}
+        <div class="panel-body">
+
+            {# =====================================
+                PAGINATION
+                data-dtable="pagination" attr is required for the root html elem of the pager.
+               ===================================== #}
+            {% if pagination %}
+                <div class="pull-left col-lg-6" data-dtable="pagination"></div>
+            {% endif %}
+
+            {# =====================================
+                SEARCH
+                only one search field supported for a table:
+                data-dtable="search-input" for the input text field
+                data-dtable="command" data-dtable-command="search" for the submit button
+               ===================================== #}
+            {% if search %}
+                <div class="pull-right col-lg-6">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="{{ search.placeholder }}" data-dtable="search-input">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" data-dtable="command" data-dtable-command="search">{{ search.submit }}</button>
+                        </span>
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="clearfix"></div>
+        </div>
+    {% endif %}
+
+    <table class="table table-striped table-bordered table-hover">
+        {# COLUMNS & FILTER #}
+        <thead>
+            <tr>
+                {% for column_id, column_def in columns %}
+                    <th>
+                        {# =====================================
+                            ORDER BY
+                            active order by tag will get .active class
+                           ===================================== #}
+                        {% if column_def.order %}
+                            <div class="pull-right" data-dtable="order">
+                                <div class="glyphicon glyphicon-chevron-up" data-dtable="command" data-dtable-command="order.asc" data-dtable-column="{{ column_id }}"></div>
+                                <div class="glyphicon glyphicon-chevron-down" data-dtable="command" data-dtable-command="order.desc" data-dtable-column="{{ column_id }}"></div>
+                            </div>
+                        {% endif %}
+
+                        {{ column_def.title }}
+                    </th>
+                {% endfor %}
+            </tr>
+            {# =====================================
+                COLUMN FILTER
+                filter column by typing in the input field
+               ===================================== #}
+            {% if has_column_filter %}
+                <tr>
+                    {% for column_id, column_def in columns %}
+                        {% if column_def.filter %}
+                            <td>
+                                <input type="text" class="form-control" placeholder="{{ column_def.filter.placeholder }}"
+                                    data-dtable="command" data-dtable-command="column_filter" data-dtable-column="{{ column_id }}">
+                            </td>
+                        {% else %}
+                            <th></th>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            {% endif %}
+        </thead>
+        <tbody data-dtable="table">
+
+        </tbody>
+    </table>
+
+    {# =====================================
+        pagination, see prev example
+       ===================================== #}
+    {% if pagination %}
+        <div class="panel-footer dtable-pagination" data-dtable="pagination">
+
+        </div>
+    {% endif %}
+
+</div>
+
+
+
+{#
 {% macro print_attr(attr) %}
     {% if attr %}
         {% for name, value in attr %} {{ name }}="{{ value }}"{% endfor %}
@@ -78,3 +178,4 @@
     {% endif %}
 
 </div>
+#}

@@ -14,9 +14,9 @@
 
             var defaults = {
                 view_dir:            "/js/dtable/views",
-                table_template:      "pagination.html",
+                table_template:      "table.html",
                 rows_template:       "rows.html",
-                pagination_template: "table.html"
+                pagination_template: "pagination.html"
             };
 
             this.dtable = dtable;
@@ -73,6 +73,14 @@
                     allLoaded(callback);
                 }
             });
+        },
+        getTableHtml: function(params)
+        {
+            return this.template.table.render(params);
+        },
+        getRowsHtml: function(params)
+        {
+            return this.template.rows.render(params);
         }
     });
 

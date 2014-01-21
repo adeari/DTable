@@ -160,8 +160,12 @@ var DTableModule = (function ($) {
          *
          * @returns {{}}
          */
-        search:        function () {
-        }
+        getSearch:        function () {
+        },
+        /**
+         * return true if one of the column deff has filter enabled
+         */
+        hasColumnFilter: function(){}
 
     });
 

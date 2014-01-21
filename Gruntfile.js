@@ -28,14 +28,15 @@ module.exports = function (grunt)
                 }
             }
         },
-        clean: ["build", "www-root/js"],
+        clean: ["build", "www-root/js", "www-root/css", "www-root/fonts"],
         copy:    {
             build: {
                 files: [
                     {expand: true, cwd: 'build', src: ['**'], dest: 'www-root/js/<%= pkg.name %>/'},
                     {expand: true, cwd: 'src', src: ['**'], dest: 'www-root/js/<%= pkg.name %>/src/'},
                     {src: "bower_components/jquery/jquery.js", dest: "www-root/js/jquery.js"},
-                    {src: "bower_components/nunjucks/browser/nunjucks.js", dest: "www-root/js/nunjucks.js"}
+                    {src: "bower_components/nunjucks/browser/nunjucks.js", dest: "www-root/js/nunjucks.js"},
+                    {expand: true, cwd: 'bower_components/bootstrap/dist', src: ['**'], dest: 'www-root/'}
                 ]
             },
             views: {
@@ -51,6 +52,10 @@ module.exports = function (grunt)
             },
             scripts: {
                 files: 'src/*.js',
+                tasks: ['build']
+            },
+            view: {
+                files: 'views/**',
                 tasks: ['build']
             },
             example: {

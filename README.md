@@ -50,12 +50,12 @@ Load table definition from url. Request is sent with POST or GET and the respons
 
 ``` text
 {
-    "title": <string>,             # table title
+    "title": <string||false>,                                       # table title
     "columns": {
         <column_id>: {
             "title":  <false||strinig>,                             # table title, if false no column title displayed and order and html_tag_attr disabled
             "filter": <false||true||{"placeholder": <string>}>,     # column filter, placeholder: input field placeholder
-            "order":  <false||true||"desc"||"asc">,                 # column order
+            "order":  <false||true>,                 # column order
             "html_tag_attr":   <false||{                            # attr for column, for example: "style": "color: #f00" => <td style="color: #f00"></td>
               <attr_name>: <attr_value>
             }>

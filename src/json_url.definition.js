@@ -31,8 +31,11 @@
         getPagination: function () {
             return this.definition.pagination;
         },
-        search:        function () {
+        getSearch:        function () {
             return this.definition.search;
+        },
+        hasColumnFilter: function(){
+            return this.definition.has_column_filter;
         },
         loading:       function (callback) {
             var url = this.options.url;
@@ -46,7 +49,15 @@
                 obj.definition = data;
                 obj.isLoaded = true;
                 obj.dtable.logger.info("json_url.definition: resource is loaded");
-                callback(data);
+
+                $.each(obj.getColumns(), function(key, value){
+                    if (value.filter)
+                    {
+                        obj.definition.has_column_filter = true;
+                    }
+                });
+
+                callback();
             }
 
             function error() {

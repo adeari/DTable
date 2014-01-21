@@ -4,7 +4,8 @@
     "dependencies": {},
     "devDependencies": {
         "jquery": "1.10.2",
-        "nunjucks": "latest"
+        "nunjucks": "latest",
+        "bootstrap": "3.0.0"
     }
 }
 
