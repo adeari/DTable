@@ -1,16 +1,54 @@
 <?php
 
-$data = [];
+require_once __DIR__ . "/lib/Table.class.php";
 
-for ($i = 0; $i < 20; $i++)
+$table = new Table("Test table");
+
+$table
+    ->search()
+    ->pagination();
+
+$table
+    ->addColumn("col_a", "Column A")
+    ->attributes(["style" => "color: #f00"]);
+
+$table
+    ->addColumn("col_b", "Column B")
+    ->filter("filter me");
+
+$table
+    ->addColumn("col_c", "Column C");
+
+$table
+    ->addColumn("col_d", "Column D")
+    ->filter();
+
+$table
+    ->addColumn("col_e", "Column E")
+    ->filter("");
+
+$def = $table->toArray();
+
+
+if (isset($_GET['definition']))
 {
-    $data[] = [
-        "col_a" => "col_a_{$i}",
-        "col_b" => "col_b_{$i}",
-        "col_c" => "col_c_{$i}",
-        "col_d" => "col_d_{$i}",
-        "col_e" => "col_e_{$i}"
-    ];
+    echo json_encode($def);
 }
+else
+{
+    $data = [];
+    $columns = array_keys($def["columns"]);
 
-echo json_encode($data);
+    for ($i = 0; $i < $def["pagination"]["rows_per_page"]; $i++)
+    {
+        $row = [];
+        foreach ($columns as $col)
+        {
+            $row[$col] = "cell {$col}.{$i}";
+        }
+
+        $data[] = $row;
+    }
+
+    echo json_encode($data);
+}

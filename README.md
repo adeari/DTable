@@ -53,7 +53,8 @@ Load table definition from url. Request is sent with POST or GET and the respons
     "title": <string||false>,                                       # table title
     "columns": {
         <column_id>: {
-            "title":  <false||strinig>,                             # table title, if false no column title displayed and order and html_tag_attr disabled
+            "title":  <false||string>,                              # table title, if false no column title displayed and order and html_tag_attr disabled,
+                                                                    # its work if all column title is false
             "filter": <false||true||{"placeholder": <string>}>,     # column filter, placeholder: input field placeholder
             "order":  <false||true>,                 # column order
             "html_tag_attr":   <false||{                            # attr for column, for example: "style": "color: #f00" => <td style="color: #f00"></td>
