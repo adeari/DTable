@@ -28,7 +28,7 @@ module.exports = function (grunt)
                 }
             }
         },
-        clean: ["build", "www-root/js", "www-root/css", "www-root/fonts"],
+        clean: ["build", "www-root/js", "www-root/css", "www-root/fonts", "www-root/db"],
         copy:    {
             build: {
                 files: [
@@ -69,6 +69,19 @@ module.exports = function (grunt)
                     base: 'www-root'
                 }
             }
+        },
+        shell: {
+            createdb: {
+                options: {
+                    stdout: true,
+                    stderr: true,
+                    failOnError: true,
+                    execOptions: {
+                        cwd: "tools"
+                    }
+                },
+                command: "php createdb.php"
+            }
         }
     });
 
@@ -77,11 +90,13 @@ module.exports = function (grunt)
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-php');
+    grunt.loadNpmTasks('grunt-shell');
 
+    // build prod files
     grunt.registerTask('build', ['clean', 'uglify', 'copy']);
-    grunt.registerTask('server', ['build', 'php', 'watch']);
+    // start server
+    grunt.registerTask('server', ['build', 'shell', 'php', 'watch']);
 
-    // Default task(s).
+    // Default task
     grunt.registerTask('default', ['build']);
-
 };

@@ -27,6 +27,7 @@
         "grunt-contrib-uglify":  "latest",
         "grunt-contrib-copy":    "latest",
         "grunt-contrib-clean":   "latest",
-        "grunt-php": "latest"
+        "grunt-php": "latest",
+        "grunt-shell": "latest"
     }
 }
