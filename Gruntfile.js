@@ -28,7 +28,10 @@ module.exports = function (grunt)
                 }
             }
         },
-        clean: ["build", "www-root/js", "www-root/css", "www-root/fonts", "www-root/db"],
+        clean: {
+            server: ["build", "www-root/js", "www-root/css", "www-root/fonts"],
+            build: ["build", "www-root/js", "www-root/css", "www-root/fonts", "www-root/db"]
+        },
         copy:    {
             build: {
                 files: [
@@ -52,11 +55,11 @@ module.exports = function (grunt)
             },
             scripts: {
                 files: 'src/*.js',
-                tasks: ['build']
+                tasks: ['build-server']
             },
             view: {
                 files: 'views/**',
-                tasks: ['build']
+                tasks: ['build-server']
             },
             example: {
                 files: ['www-root/**']
@@ -90,7 +93,10 @@ module.exports = function (grunt)
     grunt.loadNpmTasks('grunt-shell');
 
     // build prod files
-    grunt.registerTask('build', ['clean', 'uglify', 'copy']);
+    grunt.registerTask('build', ['clean:build', 'uglify', 'copy']);
+
+    // build for server
+    grunt.registerTask('build-server', ['clean:server', 'uglify', 'copy'])
 
     // start server
     grunt.registerTask('server', ['build', 'php', 'shell', 'watch']);

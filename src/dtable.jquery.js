@@ -25,6 +25,10 @@
             source: {
                 name: "json_url",
                 options: {}
+            },
+            search: {
+                name: "default",
+                options: {}
             }
         };
 
@@ -35,6 +39,7 @@
         this.template = DTableModule.getModule(DTableModule.MODULE_TEMPLATE, this.options.template.name, this.options.template.options, this);
         this.logger = DTableModule.getModule(DTableModule.MODULE_LOGGER, this.options.logger.name, this.options.logger.options, this);
         this.source = DTableModule.getModule(DTableModule.MODULE_SOURCE, this.options.source.name, this.options.source.options, this);
+        this.search = DTableModule.getModule(DTableModule.MODULE_SEARCH, this.options.search.name, this.options.search.name, this);
 
         this.loading();
     }
@@ -69,23 +74,32 @@
         }
     };
 
+    DTable.prototype.initSearch = function()
+    {
+        this.search.setPerPage(this.definition.getPagination().rows_per_page);
+    }
+
     DTable.prototype.loading = function () {
         var obj = this;
 
-        function allLoaded() {
-            if (obj.definition.isLoaded && obj.template.isLoaded && obj.source.isLoaded) {
-                obj.logger.info("DTable.loading: resources loaded");
+        function loaded() {
+            if (obj.definition.isLoaded && obj.template.isLoaded) {
 
-                obj.renderTable();
-                obj.renderRows();
+                obj.initSearch();
+
+                obj.source.loading(function(){
+                    obj.logger.info("DTable.loading: resources loaded");
+
+                    obj.renderTable();
+                    obj.renderRows();
+                });
             }
         }
 
         this.logger.info("DTable.loading: start loading resources");
 
-        this.definition.loading(allLoaded);
-        this.template.loading(allLoaded);
-        this.source.loading(allLoaded);
+        this.definition.loading(loaded);
+        this.template.loading(loaded);
     };
 
     $.fn.dtable = function (options) {

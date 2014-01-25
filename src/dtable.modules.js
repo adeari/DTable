@@ -83,6 +83,7 @@ var DTableModule = (function ($) {
     var MODULE_DEFINITION = 1;
     var MODULE_LOGGER = 2;
     var MODULE_SOURCE = 3;
+    var MODULE_SEARCH = 4;
 
     /**
      * Base object to load resource
@@ -206,7 +207,13 @@ var DTableModule = (function ($) {
          *   ...
          * }
          */
-        getRows: function(){}
+        getRows: function(){},
+        getCount: function(){}
+    });
+
+    _interfaces[MODULE_SEARCH] = Class.extend({
+        setPerPage: function(){},
+        getParams: function(){}
     });
 
     var _modules = [];
@@ -217,6 +224,7 @@ var DTableModule = (function ($) {
             this.MODULE_DEFINITION = MODULE_DEFINITION;
             this.MODULE_LOGGER = MODULE_LOGGER;
             this.MODULE_SOURCE = MODULE_SOURCE;
+            this.MODULE_SEARCH = MODULE_SEARCH;
 
             $.each(_interfaces, function(key){
                 _modules[key] = {};

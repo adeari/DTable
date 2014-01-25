@@ -107,6 +107,15 @@ Requires [Nunjucks](http://jlongster.github.io/nunjucks/)
     method: <"post"|"get">
 ```
 
+its loading rows from the url, requires json string with the followinig format:
+{rows: {<col_id>:<value>, ...}, count: <total count>}
+
+### Search modules
+
+**default**
+
+its not have any options yet, its collect data and build the data to post with source module
+
 Dev requirements
 ================
 

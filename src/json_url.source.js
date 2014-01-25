@@ -25,6 +25,12 @@
             var obj = this;
 
             function success(data) {
+
+                if (!('count' in data ) || !('rows' in data))
+                {
+                    obj.dtable.logger.error("Invalid source response");
+                }
+
                 obj.data = data;
                 obj.isLoaded = true;
                 obj.dtable.logger.info("json_url.source: resource is loaded");
@@ -36,13 +42,16 @@
             }
 
             if (this.options.method == "get") {
-                $.get(url, {}, success, "json").error(error);
+                $.get(url, obj.dtable.search.getParams(), success, "json").error(error);
             } else {
-                $.post(url, {}, success, "json").error(error);
+                $.post(url, obj.dtable.search.getParams(), success, "json").error(error);
             }
         },
         getRows: function(){
-            return this.data;
+            return this.data.rows;
+        },
+        getCount: function(){
+            return this.data.count;
         }
     });
 
