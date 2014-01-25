@@ -75,12 +75,9 @@ module.exports = function (grunt)
                 options: {
                     stdout: true,
                     stderr: true,
-                    failOnError: true,
-                    execOptions: {
-                        cwd: "tools"
-                    }
+                    failOnError: true
                 },
-                command: "php createdb.php"
+                command: "php tools/createdb.php"
             }
         }
     });
@@ -94,8 +91,9 @@ module.exports = function (grunt)
 
     // build prod files
     grunt.registerTask('build', ['clean', 'uglify', 'copy']);
+
     // start server
-    grunt.registerTask('server', ['build', 'shell', 'php', 'watch']);
+    grunt.registerTask('server', ['build', 'php', 'shell', 'watch']);
 
     // Default task
     grunt.registerTask('default', ['build']);

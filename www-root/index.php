@@ -29,7 +29,7 @@
                 definition: {
                     name: "json_url",
                     options: {
-                        url: "/json/definition.json",
+                        url: "/source.php?definition=true",
                         timestamp: true
                     }
                 },
