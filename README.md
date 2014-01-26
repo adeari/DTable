@@ -68,9 +68,9 @@ Load table definition from url. Request is sent with POST or GET and the respons
         "pages": <int>,                       # how many page shown in the pager, odd number
         "rows_per_page": <int>                # number of rows in a page
     }>,
+    # this generated from search, you dont have to add to json
     "search": <false || {
         placeholder: <string>               # search input field placeholder text
-        submit: <string>                    # submit button text
     }>
 }
 ```
@@ -115,7 +115,9 @@ its loading rows from the url, requires json string with the followinig format:
 
 **default**
 
-its not have any options yet, its collect data and build the data to post with source module
+``` text
+    placeholder:                            # serch input field placeholder
+```
 
 ### Pagination modules
 

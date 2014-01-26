@@ -28,7 +28,8 @@ class Source
 
     protected function updateParams()
     {
-        $params = ['per_page', 'offset'];
+        $params = ['per_page', 'offset', 'search'];
+        $quote = ['per_page', 'offset'];
 
         foreach ($params as $key)
         {
@@ -37,13 +38,44 @@ class Source
                 throw new Exception("Required param: " . $key);
             }
 
-            $this->params[$key] = $this->pdo->quote($_POST[$key]);
+            if (in_array($key, $quote))
+            {
+                $this->params[$key] = $this->pdo->quote($_POST[$key]);
+            }
+            else
+            {
+                $this->params[$key] = $_POST[$key];
+            }
         }
+    }
+
+    protected function getWhere()
+    {
+        $where = [];
+
+        if ($this->params['search'] != '')
+        {
+            $search = $this->pdo->quote("{$this->params['search']}%");
+            $where[] = "col_b LIKE {$search}";
+        }
+
+
+        if (count($where))
+        {
+            return "WHERE " . implode(' AND ', $where);
+        }
+        else
+        {
+            return '';
+        }
+
     }
 
     protected function getRows()
     {
-        $sql = "SELECT * FROM example LIMIT {$this->params['offset']}, {$this->params['per_page']}";
+        $where = $this->getWhere();
+
+        $sql = "SELECT * FROM example {$where} LIMIT {$this->params['offset']}, {$this->params['per_page']}";
 
         $rows = [];
         $stmt = $this->pdo->query($sql);
@@ -58,7 +90,8 @@ class Source
 
     protected function calcCount()
     {
-        $sql = "SELECT count(id) FROM example";
+        $where = $this->getWhere();
+        $sql = "SELECT count(id) FROM example {$where}";
 
         $stmt = $this->pdo->query($sql);
         $count = $stmt->fetchColumn();

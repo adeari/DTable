@@ -10,12 +10,10 @@ class Table extends Options
         parent::__construct(
             [
                 "title",
-                "search", "search.submit", "search.placeholder",
                 "columns"
             ],
             [
                 "title" => $title,
-                "search" => false,
                 "columns" => []
             ]
         );
@@ -35,13 +33,5 @@ class Table extends Options
         $this->values["columns"][$id] = $column;
 
         return $column;
-    }
-
-    public function search($submit = "Search", $placeholder = "search...")
-    {
-        $this->set("search.submit", $submit);
-        $this->set("search.placeholder", $placeholder);
-
-        return $this;
     }
 }

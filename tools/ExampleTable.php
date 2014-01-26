@@ -12,9 +12,6 @@ class ExampleTable
         $this->table = new Table("Test table");
 
         $this->table
-            ->search();
-
-        $this->table
             ->addColumn("col_a", "Column A")
             ->attributes(["style" => "color: #f00"]);
 

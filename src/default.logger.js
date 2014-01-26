@@ -18,6 +18,9 @@
         },
         error: function (msg) {
             this.dtable.loading.stopLoading();
+
+            this.dtable.table.html("Error.");
+
             throw msg;
         },
         info:  function (msg) {

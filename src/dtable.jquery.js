@@ -105,16 +105,20 @@
         pagination.html(html);
     };
 
-    DTable.prototype.update = function(){
+    DTable.prototype.update = function(callback){
 
         this.loading.startLoading();
         var obj = this;
 
         obj.source.loading(function(){
             obj.loading.stopLoading();
-            obj.renderTable();
             obj.renderRows();
             obj.renderPagination();
+
+            if (callback)
+            {
+                callback();
+            }
         });
     };
 
@@ -123,6 +127,7 @@
 
         function loaded() {
             if (obj.definition.isLoaded && obj.template.isLoaded) {
+                obj.renderTable();
                 obj.update();
             }
         }

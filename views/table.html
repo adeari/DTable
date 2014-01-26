@@ -26,16 +26,10 @@
                 SEARCH
                 only one search field supported for a table:
                 data-dtable="search-input" for the input text field
-                data-dtable="command" data-dtable-command="search" for the submit button
                ===================================== #}
             {% if search %}
                 <div class="pull-right col-lg-6">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="{{ search.placeholder }}" data-dtable="search-input">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button" data-dtable="command" data-dtable-command="search">{{ search.submit }}</button>
-                        </span>
-                    </div>
+                    <input type="text" class="form-control" placeholder="{{ search.placeholder }}" data-dtable="search">
                 </div>
             {% endif %}
 

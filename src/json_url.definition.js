@@ -8,7 +8,7 @@
 (function (DTableModule, $) {
 
     DTableModule.newModule(DTableModule.MODULE_DEFINITION, "json_url", {
-        init: function (options, dtable) {
+        init:            function (options, dtable) {
             this.definition = {};
             this.isLoaded = false;
 
@@ -22,41 +22,38 @@
             this.dtable = dtable;
             this.options = $.extend({}, defaults, options);
         },
-        getTitle:      function () {
+        getTitle:        function () {
             return this.definition.title;
         },
-        getColumns:    function () {
+        getColumns:      function () {
             return this.definition.columns;
         },
-        getPagination: function () {
+        getPagination:   function () {
             return {
-               show_first_last: this.dtable.pagination.getShowFirstLast(),
-               pages: this.dtable.pagination.getPageNum(),
-               rows_per_page: this.dtable.pagination.getRowsPerPage()
+                show_first_last: this.dtable.pagination.getShowFirstLast(),
+                pages:           this.dtable.pagination.getPageNum(),
+                rows_per_page:   this.dtable.pagination.getRowsPerPage()
             };
         },
-        getSearch:        function () {
-            return this.definition.search;
+        getSearch:       function () {
+            return {
+                placeholder: this.dtable.search.options.placeholder
+            };
         },
-        hasColumnFilter: function(){
+        hasColumnFilter: function () {
             return this.definition.has_column_filter;
         },
-        loading:       function (callback) {
+        loading:         function (callback) {
             var url = this.options.url;
             var obj = this;
-
-            if (this.options.timestamp) {
-                url = url + "?" + new Date().getTime();
-            }
 
             function success(data) {
                 obj.definition = data;
                 obj.isLoaded = true;
                 obj.dtable.logger.info("json_url.definition: resource is loaded");
 
-                $.each(obj.getColumns(), function(key, value){
-                    if (value.filter)
-                    {
+                $.each(obj.getColumns(), function (key, value) {
+                    if (value.filter) {
                         obj.definition.has_column_filter = true;
                     }
                 });
@@ -64,32 +61,23 @@
                 callback();
             }
 
-
             var type = "POST";
             if (this.options.method == "get") {
                 type = "GET";
             }
 
             $.ajax(url, {
-                url: url,
-                type: type,
-                async: true,
-                cache: false,
-                data: this.options.data,
+                url:      url,
+                type:     type,
+                async:    true,
+                cache:    this.options.timestamp,
+                data:     this.options.data,
                 dataType: "json",
-                error: function(){
+                error:    function () {
                     obj.dtable.logger.error("Can't load definition resource from " + url);
                 },
-                success: success
+                success:  success
             });
-
-            /*
-            if (this.options.method == "get") {
-                $.get(url, this.options.data, success, "json").error(error);
-            } else {
-                $.post(url, this.options.data, success, "json").error(error);
-            }
-            */
         }
     });
 
