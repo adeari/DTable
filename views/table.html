@@ -68,7 +68,7 @@
                         {% if column_def.filter %}
                             <td>
                                 <input type="text" class="form-control" placeholder="{{ column_def.filter.placeholder }}"
-                                    data-dtable="command" data-dtable-command="column_filter" data-dtable-column="{{ column_id }}">
+                                    data-dtable="filter" data-column="{{ column_id }}">
                             </td>
                         {% else %}
                             <th></th>

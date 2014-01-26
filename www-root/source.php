@@ -9,7 +9,7 @@ if (isset($_GET['definition']))
 }
 else
 {
-    //sleep(1);
+    sleep(2);
     $source = new Source();
 
     $source->data();

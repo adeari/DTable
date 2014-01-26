@@ -28,7 +28,7 @@ class Source
 
     protected function updateParams()
     {
-        $params = ['per_page', 'offset', 'search'];
+        $params = ['per_page', 'offset', 'search', 'filter'];
         $quote = ['per_page', 'offset'];
 
         foreach ($params as $key)
@@ -44,13 +44,14 @@ class Source
             }
             else
             {
-                $this->params[$key] = $_POST[$key];
+                $this->params[$key] = isset($_POST[$key]) ? $_POST[$key] : false;
             }
         }
     }
 
     protected function getWhere()
     {
+        $cols = ['col_b', 'col_d', 'col_e'];
         $where = [];
 
         if ($this->params['search'] != '')
@@ -59,6 +60,17 @@ class Source
             $where[] = "col_b LIKE {$search}";
         }
 
+        if ($this->params['filter'])
+        {
+            foreach ($this->params['filter'] as $col => $value)
+            {
+                if (in_array($col, $cols))
+                {
+                    $value = $this->pdo->quote($value . "%");
+                    $where[] = "{$col} LIKE {$value}";
+                }
+            }
+        }
 
         if (count($where))
         {
@@ -68,7 +80,6 @@ class Source
         {
             return '';
         }
-
     }
 
     protected function getRows()
