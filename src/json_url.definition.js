@@ -64,15 +64,32 @@
                 callback();
             }
 
-            function error() {
-                obj.dtable.logger.error("Can't load definition resource from " + url);
+
+            var type = "POST";
+            if (this.options.method == "get") {
+                type = "GET";
             }
 
+            $.ajax(url, {
+                url: url,
+                type: type,
+                async: true,
+                cache: false,
+                data: this.options.data,
+                dataType: "json",
+                error: function(){
+                    obj.dtable.logger.error("Can't load definition resource from " + url);
+                },
+                success: success
+            });
+
+            /*
             if (this.options.method == "get") {
                 $.get(url, this.options.data, success, "json").error(error);
             } else {
                 $.post(url, this.options.data, success, "json").error(error);
             }
+            */
         }
     });
 

@@ -33,6 +33,10 @@
             pagination: {
                 name: "default",
                 options: {}
+            },
+            loading: {
+                name: "default",
+                options: {}
             }
         };
 
@@ -45,9 +49,9 @@
         this.logger = DTableModule.getModule(DTableModule.MODULE_LOGGER, this.options.logger.name, this.options.logger.options, this);
         this.source = DTableModule.getModule(DTableModule.MODULE_SOURCE, this.options.source.name, this.options.source.options, this);
         this.search = DTableModule.getModule(DTableModule.MODULE_SEARCH, this.options.search.name, this.options.search.name, this);
+        this.loading = DTableModule.getModule(DTableModule.MODULE_LOADING, this.options.loading.name, this.options.loading.options, this);
 
-
-        this.loading();
+        this.init();
     }
 
     DTable.prototype.renderTable = function() {
@@ -103,17 +107,18 @@
 
     DTable.prototype.update = function(){
 
+        this.loading.startLoading();
         var obj = this;
 
         obj.source.loading(function(){
+            obj.loading.stopLoading();
             obj.renderTable();
             obj.renderRows();
             obj.renderPagination();
         });
-
     };
 
-    DTable.prototype.loading = function () {
+    DTable.prototype.init = function () {
         var obj = this;
 
         function loaded() {
@@ -121,8 +126,6 @@
                 obj.update();
             }
         }
-
-        this.logger.info("DTable.loading: start loading resources");
 
         this.definition.loading(loaded);
         this.template.loading(loaded);

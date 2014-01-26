@@ -3,6 +3,12 @@
 <head>
     <title>DTable</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <style>
+        .loading
+        {
+            color: #000000;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -12,7 +18,11 @@
                     <h1>DTable</h1>
                 </div>
 
-                <div id="table"></div>
+                <div id="table">
+                    <div data-dtable="loading" class="loading">
+                        Loading...
+                    </div>
+                </div>
             </div>
         </div>
     </div>

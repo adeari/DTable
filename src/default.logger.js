@@ -17,6 +17,7 @@
             this.options = $.extend({}, defaults, options);
         },
         error: function (msg) {
+            this.dtable.loading.stopLoading();
             throw msg;
         },
         info:  function (msg) {

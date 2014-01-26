@@ -62,6 +62,7 @@ Load table definition from url. Request is sent with POST or GET and the respons
             }>
         }
     },
+    # this generated from pagination, you dont have to add to json
     "pagination": <false || {
         "show_first_last": <true|false>,      # show first and last page
         "pages": <int>,                       # how many page shown in the pager, odd number
@@ -126,6 +127,14 @@ its not have any options yet, its collect data and build the data to post with s
     pages: <int>                            # how many page in the pager, odd number
     rows_per_page: <int>                    # results per page
 ```
+
+### Loading modules
+
+Show loading message when the table refresh
+
+** default **
+
+There is no options. It's uses html tag with data-dtable="loading" attr.
 
 Dev requirements
 ================

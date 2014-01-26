@@ -5,3 +5,4 @@ build/*
 www-root/js/*
 www-root/css/*
 www-root/fonts/*
+www-root/db
