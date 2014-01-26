@@ -8,7 +8,7 @@
 (function (DTableModule, $) {
 
     DTableModule.newModule(DTableModule.MODULE_DEFINITION, "json_url", {
-        init:          function (options, dtable) {
+        init: function (options, dtable) {
             this.definition = {};
             this.isLoaded = false;
 
@@ -29,7 +29,11 @@
             return this.definition.columns;
         },
         getPagination: function () {
-            return this.definition.pagination;
+            return {
+               show_first_last: this.dtable.pagination.getShowFirstLast(),
+               pages: this.dtable.pagination.getPageNum(),
+               rows_per_page: this.dtable.pagination.getRowsPerPage()
+            };
         },
         getSearch:        function () {
             return this.definition.search;

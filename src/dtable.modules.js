@@ -84,6 +84,7 @@ var DTableModule = (function ($) {
     var MODULE_LOGGER = 2;
     var MODULE_SOURCE = 3;
     var MODULE_SEARCH = 4;
+    var MODULE_PAGINATION = 5;
 
     /**
      * Base object to load resource
@@ -216,6 +217,22 @@ var DTableModule = (function ($) {
         getParams: function(){}
     });
 
+    _interfaces[MODULE_PAGINATION] = Class.extend({
+        // current page
+        getPage: function(){},
+        setPage: function(){},
+        // pagination first and last page show?
+        getShowFirstLast: function(){},
+        // pagination, shown pages
+        getPageNum: function(){},
+        // number of results per page
+        getRowsPerPage: function(){},
+        setRowsPerPage: function(){},
+        // pagination
+        getMaxPage: function(){},
+        getPagesArr: function(){}
+    });
+
     var _modules = [];
 
     var DTableModule = Class.extend({
@@ -225,6 +242,7 @@ var DTableModule = (function ($) {
             this.MODULE_LOGGER = MODULE_LOGGER;
             this.MODULE_SOURCE = MODULE_SOURCE;
             this.MODULE_SEARCH = MODULE_SEARCH;
+            this.MODULE_PAGINATION = MODULE_PAGINATION;
 
             $.each(_interfaces, function(key){
                 _modules[key] = {};

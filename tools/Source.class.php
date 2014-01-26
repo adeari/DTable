@@ -4,7 +4,7 @@ class Source
 {
     protected $pdo;
 
-    protected $perPage;
+    protected $params = [];
 
     public function __construct()
     {
@@ -28,17 +28,22 @@ class Source
 
     protected function updateParams()
     {
-        if (!isset($_POST['per_page']))
-        {
-            throw new Exception("per_page param required");
-        }
+        $params = ['per_page', 'offset'];
 
-        $this->perPage = $this->pdo->quote($_POST['per_page']);
+        foreach ($params as $key)
+        {
+            if (!isset($_POST[$key]))
+            {
+                throw new Exception("Required param: " . $key);
+            }
+
+            $this->params[$key] = $this->pdo->quote($_POST[$key]);
+        }
     }
 
     protected function getRows()
     {
-        $sql = "SELECT * FROM example LIMIT {$this->perPage}";
+        $sql = "SELECT * FROM example LIMIT {$this->params['offset']}, {$this->params['per_page']}";
 
         $rows = [];
         $stmt = $this->pdo->query($sql);

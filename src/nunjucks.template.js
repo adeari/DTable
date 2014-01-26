@@ -81,6 +81,10 @@
         getRowsHtml: function(params)
         {
             return this.template.rows.render(params);
+        },
+        getPaginationHtml: function(params)
+        {
+            return this.template.pagination.render(params);
         }
     });
 

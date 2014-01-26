@@ -43,7 +43,7 @@ class CreateExampleTable
     {
         $this->createTable();
 
-        for ($i = 0; $i < 1000; $i++)
+        for ($i = 0; $i < $this->rowCount; $i++)
         {
             $this->createRow();
         }
@@ -126,6 +126,5 @@ class CreateExampleTable
 }
 
 
-$create = new CreateExampleTable();
+$create = new CreateExampleTable(1000);
 $create->run();
-sleep(2);

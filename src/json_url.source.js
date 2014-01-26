@@ -33,7 +33,6 @@
 
                 obj.data = data;
                 obj.isLoaded = true;
-                obj.dtable.logger.info("json_url.source: resource is loaded");
                 callback();
             }
 

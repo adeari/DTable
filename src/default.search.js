@@ -2,17 +2,22 @@
 
     DTableModule.newModule(DTableModule.MODULE_SEARCH, "default", {
         init: function(options, dtable){
-            this.perPage = 20;
+
             this.dtable = dtable;
         },
-        setPerPage: function(count){
-            this.perPage = count;
-            this.dtable.logger.info("rows per page: " + count);
+        update: function()
+        {
+            this.dtable.update();
         },
         getParams: function(){
-            return {
-                per_page: this.perPage
+            var params = {
+                per_page: this.dtable.definition.getPagination().rows_per_page,
+                offset: this.dtable.pagination.getOffset()
             };
+
+            //console.log(params);
+
+            return params;
         }
     });
 

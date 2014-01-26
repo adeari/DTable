@@ -116,6 +116,17 @@ its loading rows from the url, requires json string with the followinig format:
 
 its not have any options yet, its collect data and build the data to post with source module
 
+### Pagination modules
+
+**default**
+
+    **options**
+``` text
+    show_first_and_last: <boolean>          # in pager, first and last page shown?
+    pages: <int>                            # how many page in the pager, odd number
+    rows_per_page: <int>                    # results per page
+```
+
 Dev requirements
 ================
 

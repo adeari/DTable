@@ -12,8 +12,7 @@ class ExampleTable
         $this->table = new Table("Test table");
 
         $this->table
-            ->search()
-            ->pagination();
+            ->search();
 
         $this->table
             ->addColumn("col_a", "Column A")
