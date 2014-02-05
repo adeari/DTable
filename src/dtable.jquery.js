@@ -37,6 +37,10 @@
             loading: {
                 name: "default",
                 options: {}
+            },
+            order: {
+                name: "default",
+                options: {}
             }
         };
 
@@ -50,6 +54,7 @@
         this.source = DTableModule.getModule(DTableModule.MODULE_SOURCE, this.options.source.name, this.options.source.options, this);
         this.search = DTableModule.getModule(DTableModule.MODULE_SEARCH, this.options.search.name, this.options.search.name, this);
         this.loading = DTableModule.getModule(DTableModule.MODULE_LOADING, this.options.loading.name, this.options.loading.options, this);
+        this.order = DTableModule.getModule(DTableModule.MODULE_ORDER, this.options.order.name, this.options.order.options, this);
 
         this.init();
     }

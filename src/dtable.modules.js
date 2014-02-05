@@ -86,6 +86,7 @@ var DTableModule = (function ($) {
     var MODULE_SEARCH = 4;
     var MODULE_PAGINATION = 5;
     var MODULE_LOADING = 6;
+    var MODULE_ORDER = 7;
 
     /**
      * Base object to load resource
@@ -239,6 +240,10 @@ var DTableModule = (function ($) {
         stopLoading: function(){}
     });
 
+    _interfaces[MODULE_ORDER] = Class.extend({
+        getOrderBy: function(){}
+    });
+
     var _modules = [];
 
     var DTableModule = Class.extend({
@@ -250,6 +255,7 @@ var DTableModule = (function ($) {
             this.MODULE_SEARCH = MODULE_SEARCH;
             this.MODULE_PAGINATION = MODULE_PAGINATION;
             this.MODULE_LOADING = MODULE_LOADING;
+            this.MODULE_ORDER = MODULE_ORDER;
 
             $.each(_interfaces, function(key){
                 _modules[key] = {};

@@ -69,7 +69,8 @@
                 search: this.search,
                 filter: this.filter,
                 per_page: this.dtable.definition.getPagination().rows_per_page,
-                offset: this.dtable.pagination.getOffset()
+                offset: this.dtable.pagination.getOffset(),
+                order: this.dtable.order.getOrderBy()
             };
 
             return params;

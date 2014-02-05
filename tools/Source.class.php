@@ -82,6 +82,11 @@ class Source
         }
     }
 
+    protected function getOrderBy()
+    {
+
+    }
+
     protected function getRows()
     {
         $where = $this->getWhere();
