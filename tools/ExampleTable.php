@@ -13,14 +13,17 @@ class ExampleTable
 
         $this->table
             ->addColumn("col_a", "Column A")
+            ->order()
             ->attributes(["style" => "color: #f00"]);
 
         $this->table
             ->addColumn("col_b", "Column B")
+            ->order()
             ->filter("filter me");
 
         $this->table
-            ->addColumn("col_c", "Column C");
+            ->addColumn("col_c", "Column C")
+            ->order();
 
         $this->table
             ->addColumn("col_d", "Column D")

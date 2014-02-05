@@ -49,6 +49,7 @@ class Column extends Options
      * Enable order
      *
      * @param bool $order  true | "desc" | "asc"
+     * @return $this
      */
     public function order($order = true)
     {
@@ -58,6 +59,8 @@ class Column extends Options
         }
 
         $this->set("order", $order);
+
+        return $this;
     }
 
     /**

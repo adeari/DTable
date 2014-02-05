@@ -22,6 +22,7 @@
 
             this.dtable.table.on("keyup", '[data-dtable="search"]', function(){
                 obj.search = $(this).val();
+                obj.dtable.pagination.setPage(1);
                 obj.update();
             });
 
@@ -33,6 +34,7 @@
                     obj.filter = {};
                 }
                 obj.filter[elem.attr('data-column')] = elem.val();
+                obj.dtable.pagination.setPage(1);
                 obj.update();
             });
         },

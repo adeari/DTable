@@ -13,7 +13,7 @@
             this.isLoaded = false;
 
             var defaults = {
-                view_dir:            "/js/dtable/views",
+                view_dir:            "/views",
                 table_template:      "table.html",
                 rows_template:       "rows.html",
                 pagination_template: "pagination.html"
@@ -21,6 +21,7 @@
 
             this.dtable = dtable;
             this.options = $.extend({}, defaults, options);
+
             this.template = {
                 table:      false,
                 rows:       false,

@@ -41,7 +41,7 @@
         };
 
         this.table = table;
-        this.options = $.extend({}, defaults, options);
+        this.options = $.extend(true, {}, defaults, options);
 
         this.definition = DTableModule.getModule(DTableModule.MODULE_DEFINITION, this.options.definition.name, this.options.definition.options, this);
         this.pagination = DTableModule.getModule(DTableModule.MODULE_PAGINATION, this.options.pagination.name, this.options.pagination.options, this);

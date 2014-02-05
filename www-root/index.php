@@ -36,21 +36,18 @@
     <script>
         $().ready(function(){
             $("#table").dtable({
+                template: {
+                    options: {
+                        view_dir: '/js/dtable/views'
+                    }
+                },
                 definition: {
-                    name: "json_url",
                     options: {
                         url: "/source.php?definition=true",
                         timestamp: true
                     }
                 },
-                logger: {
-                    name: "default",
-                    options: {
-                        debug: true
-                    }
-                },
                 source: {
-                    name: "json_url",
                     options: {
                         url: "/source.php"
                     }
