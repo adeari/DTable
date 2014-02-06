@@ -179,8 +179,20 @@ var DTableModule = (function ($) {
      * @type {*}
      */
     _interfaces[MODULE_TEMPLATE] = ResourceLoader.extend({
+        /**
+         * Return the rendered table html
+         * @param params
+         */
         getTableHtml:      function (params) {},
+        /**
+         * Retrun the rendered rows html
+         * @param params
+         */
         getRowsHtml:       function (params) {},
+        /**
+         * Return the rendered pagination html
+         * @param params
+         */
         getPaginationHtml: function (params) {}
     });
 
@@ -190,14 +202,21 @@ var DTableModule = (function ($) {
      * @type {*|extend}
      */
     _interfaces[MODULE_LOGGER] = Class.extend({
-        error: function (msg) {
-        },
-        info:  function (msg) {
-        }
+        /**
+         * Log error also throw exception and stop loading
+         *
+         * @param msg
+         */
+        error: function (msg) { },
+        /**
+         * Log info
+         * @param msg
+         */
+        info:  function (msg) { }
     });
 
     /**
-     * Source interface
+     * Source interface, used to get table rows
      *
      * @type {*}
      */
@@ -205,41 +224,93 @@ var DTableModule = (function ($) {
         /**
          * must return the following format:
          *
-         * {
+         * [{
          *   <column_id> : <data>,
          *   ...
-         * }
+         * }, ... ]
          */
         getRows: function(){},
         getCount: function(){}
     });
 
+    /**
+     * Search interface, used to build query params to post
+     * and update the table
+     *
+     * @type {*|extend}
+     */
     _interfaces[MODULE_SEARCH] = Class.extend({
-        setPerPage: function(){},
+        /**
+         * call it when a search parameter changed, it will call dtable.update
+         */
+        update: function() {},
+        /**
+         * get the query params to post
+         */
         getParams: function(){}
     });
 
+    /**
+     * Pagination interface, used to controll pagination
+     * @type {*|extend}
+     */
     _interfaces[MODULE_PAGINATION] = Class.extend({
-        // current page
+        /**
+         * current page
+         * @return int
+         */
         getPage: function(){},
-        setPage: function(){},
-        // pagination first and last page show?
+        /**
+         * set current page
+         * @param page
+         */
+        setPage: function(page){},
+        /**
+         * have to show first and last page?
+         */
         getShowFirstLast: function(){},
-        // pagination, shown pages
+        /**
+         * number of pages to show in pagination, odd number!
+         */
         getPageNum: function(){},
-        // number of results per page
+        /**
+         * get rows per page
+         */
         getRowsPerPage: function(){},
-        setRowsPerPage: function(){},
-        // pagination
+        /**
+         * set rows per page
+         * @param page
+         */
+        setRowsPerPage: function(page){},
+        /**
+         * max page num
+         */
         getMaxPage: function(){},
-        getPagesArr: function(){}
+        /**
+         * array contains pages to show in pagination
+         */
+        getPagesArr: function(){},
+        /**
+         * offset to post in query
+         */
+        getOffset: function(){}
     });
 
+    /**
+     * Loading indicator interface
+     *
+     * @type {*|extend}
+     */
     _interfaces[MODULE_LOADING] = Class.extend({
         startLoading: function(){},
         stopLoading: function(){}
     });
 
+    /**
+     * Order controll interface
+     *
+     * @type {*|extend}
+     */
     _interfaces[MODULE_ORDER] = Class.extend({
         getOrderBy: function(){}
     });
@@ -282,6 +353,22 @@ var DTableModule = (function ($) {
             }
 
             _modules[type][name] = _interfaces[type].extend(props);
+        },
+        extendModule: function(type, extend, newName, props)
+        {
+            if (_modules[type] == undefined) {
+                throw "Invalid DTableModule type";
+            }
+
+            if (_modules[type][extend] == undefined) {
+                throw "DTableModule '" + name + "' doesn't exist.";
+            }
+
+            if (_modules[type][newName] != undefined) {
+                throw "DTableModule " + newName + " already exist.";
+            }
+
+            _modules[type][newName] = _modules[type][extend].extend(props);
         }
     });
 

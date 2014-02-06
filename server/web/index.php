@@ -58,6 +58,15 @@
 <script src="//localhost:35729/livereload.js"></script>
 
 <script>
+
+    // extending an old module example
+    DTableModule.extendModule(DTableModule.MODULE_LOADING, 'default', 'test', {
+        init: function(options, dtable) {
+            this._super(options, dtable);
+            console.log('test');
+        }
+    });
+
     $().ready(function(){
         $("#table").dtable({
             template: {
@@ -75,6 +84,9 @@
                 options: {
                     url: "/source.php?table=example_01"
                 }
+            },
+            loading: {
+                name: 'test'
             }
         });
 
