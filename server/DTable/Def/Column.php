@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . "/Options.class.php";
+namespace DTable\Def;
 
 class Column extends Options
 {

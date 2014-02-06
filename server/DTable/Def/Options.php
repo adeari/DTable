@@ -1,14 +1,23 @@
 <?php
 
-class Options
+namespace DTable\Def;
+
+/**
+ * Class Options
+ *
+ * Helper class to get/set options.
+ *
+ * @package DTable\Def
+ */
+abstract class Options
 {
     protected $values = [];
     protected $available = [];
 
     /**
-     * Constructor
+     * option examaple: person, person.name, person.age
      *
-     * @param array $available
+     * @param array $available array of available options
      * @param array $default
      */
     public function __construct(array $available, array $default = [])
@@ -21,16 +30,35 @@ class Options
         }
     }
 
+    /**
+     * check the option is available or not
+     *
+     * @param $name
+     * @return bool
+     */
     protected function check($name)
     {
         return in_array($name, $this->available);
     }
 
+    /**
+     * set an option value
+     *
+     * person       => array("person" => <value>)
+     * person.name  => array("person" => array("name" => <value>)
+     *
+     * if value is instance of Options, then it will be parsed and get the options from it
+     *
+     * @param $name
+     * @param $value
+     * @return $this
+     * @throws \Exception
+     */
     protected function set($name, $value)
     {
         if (!$this->check($name))
         {
-            throw new Exception("Invalid option {$name}");
+            throw new \Exception("Invalid option {$name}");
         }
 
         $name = explode(".", $name);
@@ -60,6 +88,12 @@ class Options
         return $this;
     }
 
+    /**
+     * Build the array
+     *
+     * @param $values
+     * @return array
+     */
     protected function build(&$values)
     {
         $result = [];
@@ -83,6 +117,11 @@ class Options
         return $result;
     }
 
+    /**
+     * Get the array
+     *
+     * @return array
+     */
     public function toArray()
     {
         return $this->build($this->values);

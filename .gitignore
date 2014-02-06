@@ -2,7 +2,7 @@
 bower_components
 node_modules
 build/*
-www-root/js/*
-www-root/css/*
-www-root/fonts/*
-www-root/db
+server/web/js/*
+server/web/css/*
+server/web/fonts/*
+config/Config.php

@@ -8,7 +8,7 @@
             this.options = $.extend({}, defaults, options);
             this.dtable = dtable;
 
-            this.columns = false;
+            this.columns = "";
 
             var obj = this;
 

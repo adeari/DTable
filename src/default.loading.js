@@ -14,7 +14,6 @@
             if (div.length)
             {
                 this.enabled = true;
-                div.detach();
 
                 this.div = div;
             }

@@ -1,23 +1,33 @@
 <?php
 
-require_once __DIR__ . "/Options.class.php";
-require_once __DIR__ . "/Column.class.php";
+namespace DTable\Def;
 
-class Table extends Options
+abstract class Table extends Options
 {
-    public function __construct($title)
+    /**
+     * create a new table def
+     *
+     * @param array|bool|string $title
+     */
+    public function __construct($title = "unknown")
     {
         parent::__construct(
             [
                 "title",
+                "db_table",
                 "columns"
             ],
             [
+                "db_table" => "example",
                 "title" => $title,
                 "columns" => []
             ]
         );
+
+        $this->config();
     }
+
+    abstract protected function config();
 
     /**
      * Add new column
