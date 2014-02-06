@@ -43,6 +43,9 @@
         hasColumnFilter: function () {
             return this.definition.has_column_filter;
         },
+        hasColumnTitle: function() {
+            return this.definition.has_column_title;
+        },
         loading:         function (callback) {
             var url = this.options.url;
             var obj = this;
@@ -52,9 +55,17 @@
                 obj.isLoaded = true;
                 obj.dtable.logger.info("json_url.definition: resource is loaded");
 
+                obj.definition.has_column_filter = false;
+                obj.definition.has_column_title = false;
+
                 $.each(obj.getColumns(), function (key, value) {
                     if (value.filter) {
                         obj.definition.has_column_filter = true;
+                    }
+
+                    if (value.title)
+                    {
+                        obj.definition.has_column_title = true;
                     }
                 });
 

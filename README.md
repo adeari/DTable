@@ -1,31 +1,70 @@
 DTable
 ======
 
-Requirements
-------------
+This is an data table implementation, using jQuery 1.10.2 and [Nunjucks](http://jlongster.github.io/nunjucks/) for templating.
+Highly customizable, you can modify the template and use your own designe.
 
-The built in template module uses [Nunjucks](http://jlongster.github.io/nunjucks/), and the library is built with
-jQuery 1.10.2
+DTable is module based, you can add/extend modules if you want to change default behaviors. You can even change the template
+engine by creating a new template module.
+
+The built in template is bootstrap 3 based table, but you can use anything from table to div per row.
+
+How to use
+----------
+
+This branch is used to develop DTable, you can find the built javascripts in the build directory.
+
+For some examples, see server/web/index.php file in this branch.
+
+You can find soruce files in the src folder, you dont need to use it in dev, in the build folder you will find a js source map file.
+
+Plans
+-------
+
+- column types (string, partial, image)
+- editable rows
+-- column types (int, string. select, multiselect, boolean)
 
 Options
 -------
 
-* **definition**: table definition module options
+``` text
+  {
+    definition: {
+        name: <module_name>,            # default: json_url
+        options: <module_options>
+    },
+    template: {
+        name: <module_name>,            # default: nunjucks
+        options: <module_options>
+    },
+    logger: {
+        name: <module_name>,            # default: default
+        options: <module_options>
+    },
+    source: {
+        name: <module_name>,            # default: json_url
+        options: <module_options>
+    },
+    search: {
+        name: <module_name>,            # default: default
+        options: <module_options>
+    },
+    pagination: {
+        name: <module_name>,            # default: default
+        options: <module_options>
+    },
+    loading: {
+        name: <module_name>,            # default: default
+        options: <module_options>
+    },
+    order: {
+        name: <module_name>,            # default: default
+        options: <module_options>
+    },
+  }
+```
 
-  * __name__: <string>          # module name
-  * __options__: {}             # module options (see individual modules for reference)
-
-* **template**: table renderer module
-  * __name__: <string>          # module name
-  * __options__: {}             # module options
-
-* **logger**: table renderer module
-  * __name__: <string>          # module name
-  * __options__: {}             # module options
-
-* **source**: data source
-  * __name__: <string>          # module name
-  * __options__: {}             # module options
 
 Modules
 -------
@@ -40,34 +79,28 @@ Load table definition from url. Request is sent with POST or GET and the respons
   **options**:
 
 ```
-    url: <string>               # url to download the json data
-    method: <"post"|"get">      # method for request
-    data: {}                    # extra data to send
-    timestamp: <true|false>     # if true, it will add timestamp at the end of the url like: ?121213123
+    url: <string>               # url to download the json data, default: ""
+    method: <"post"|"get">      # method for request, default: "get"
+    data: {}                    # extra data to send, default: {}
+    timestamp: <true|false>     # if true, it will add timestamp to prevent caching the page
 ```
 
-  **json format**
+  **response json format**
 
 ``` text
 {
     "title": <string||false>,                                       # table title
     "columns": {
         <column_id>: {
-            "title":  <false||string>,                              # table title, if false no column title displayed and order and html_tag_attr disabled,
+            "title":  <false||string>,                              # table title, if false no column title displayed,
                                                                     # its work if all column title is false
             "filter": <false||true||{"placeholder": <string>}>,     # column filter, placeholder: input field placeholder
-            "order":  <false||true>,                 # column order
+            "order":  <false||true>,                                # column order enable/disable
             "html_tag_attr":   <false||{                            # attr for column, for example: "style": "color: #f00" => <td style="color: #f00"></td>
               <attr_name>: <attr_value>
             }>
         }
     },
-    # this generated from pagination, you dont have to add to json
-    "pagination": <false || {
-        "show_first_last": <true|false>,      # show first and last page
-        "pages": <int>,                       # how many page shown in the pager, odd number
-        "rows_per_page": <int>                # number of rows in a page
-    }>,
     # this generated from search, you dont have to add to json
     "search": <false || {
         placeholder: <string>               # search input field placeholder text
@@ -83,10 +116,10 @@ Requires [Nunjucks](http://jlongster.github.io/nunjucks/)
 
    **options**
 ``` text
-    view_dir: <string>                  # url pointing to the view dir
-    table_template: <string>            # table template filename
-    rows_template: <string>             # rows template filename
-    pagination_template: <string>       # pagination template filename
+    view_dir: <string>                  # url pointing to the view dir, default: "/view"
+    table_template: <string>            # table template filename, default: "table.html"
+    rows_template: <string>             # rows template filename, default: "rows.html"
+    pagination_template: <string>       # pagination template filename, default: "pagination.html"
 ```
 
 ### Logger modules
@@ -102,21 +135,46 @@ Requires [Nunjucks](http://jlongster.github.io/nunjucks/)
 
 **json_url**
 
+The module will put with post or get the query paramters. The response must be a json with the table rows.
+
     **options**
 ``` text
-    url: <string>
-    method: <"post"|"get">
+    url: <string>                       # url to put query paramters, default: ""
+    method: <"post"|"get">              # method to use, default: "post"
+```
+    **query parameters**
+```
+    search: <string>,
+    filter: "" || {
+        <column_id>: <filter_text>,
+        ...
+    },
+    per_page: <int>,
+    offset: <int>,
+    order: "" || {                      # currently only one order by column supported, but its possible to have more than one
+        <column_id>: "asc"||"desc",
+        ...
+    }
 ```
 
-its loading rows from the url, requires json string with the followinig format:
-{rows: {<col_id>:<value>, ...}, count: <total count>}
+    **response json format**
+```
+    [
+        {
+            <col_id> : <value>,
+            ....
+        },
+        ....
+    ]
+```
 
 ### Search modules
 
 **default**
 
 ``` text
-    placeholder:                            # serch input field placeholder
+    placeholder:                            # serch input field placeholder, default: "search...",
+    waiting: <int>                          # time in ms to wait after last modification in search paramters before submitting, default: 600
 ```
 
 ### Pagination modules
@@ -125,9 +183,9 @@ its loading rows from the url, requires json string with the followinig format:
 
     **options**
 ``` text
-    show_first_and_last: <boolean>          # in pager, first and last page shown?
-    pages: <int>                            # how many page in the pager, odd number
-    rows_per_page: <int>                    # results per page
+    show_first_and_last: <boolean>          # in pager, first and last page shown? default: true
+    pages: <int>                            # how many page in the pager, odd number, default: 5
+    rows_per_page: <int>                    # results per page, default: 20
 ```
 
 ### Loading modules
@@ -141,9 +199,9 @@ There is no options. It's uses html tag with data-dtable="loading" attr.
 Dev requirements
 ================
 
-nodejs, yeoman, php5.4+ (for built in server)
+nodejs, php5.4+ (for built in server), grunt, npm, bower
 
-after clone, `npm install` and `bower update`
+after clone, run update.sh
 
 `grunt build`: build the library
-`grunt server`: start server on http://127.0.0.1:8080
+`grunt server`: start server with live reloading on http://127.0.0.1:8080

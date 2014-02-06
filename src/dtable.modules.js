@@ -169,7 +169,11 @@ var DTableModule = (function ($) {
         /**
          * return true if one of the column deff has filter enabled
          */
-        hasColumnFilter: function(){}
+        hasColumnFilter: function(){},
+        /**
+         * return true if one of the column has title
+         */
+        hasColumnTitle: function(){}
 
     });
 

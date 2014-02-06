@@ -65,7 +65,8 @@
             "pagination": this.definition.getPagination(),
             "search": this.definition.getSearch(),
             "columns": this.definition.getColumns(),
-            "has_column_filter": this.definition.hasColumnFilter()
+            "has_column_filter": this.definition.hasColumnFilter(),
+            "has_column_title": this.definition.hasColumnTitle()
         });
 
         this.table.html(html);

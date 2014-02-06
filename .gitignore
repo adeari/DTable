@@ -1,7 +1,6 @@
 .idea
 bower_components
 node_modules
-build/*
 server/web/js/*
 server/web/css/*
 server/web/fonts/*
