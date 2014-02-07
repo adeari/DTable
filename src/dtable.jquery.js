@@ -41,6 +41,10 @@
             order: {
                 name: "default",
                 options: {}
+            },
+            formatter: {
+                name: "default",
+                options: {}
             }
         };
 
@@ -55,6 +59,7 @@
         this.search = DTableModule.getModule(DTableModule.MODULE_SEARCH, this.options.search.name, this.options.search.name, this);
         this.loading = DTableModule.getModule(DTableModule.MODULE_LOADING, this.options.loading.name, this.options.loading.options, this);
         this.order = DTableModule.getModule(DTableModule.MODULE_ORDER, this.options.order.name, this.options.order.options, this);
+        this.formatter = DTableModule.getModule(DTableModule.MODULE_FORMATTER, this.options.formatter.name, this.options.formatter.options, this);
 
         this.init();
     }
@@ -73,8 +78,18 @@
     };
 
     DTable.prototype.renderRows = function() {
+
+        var rows = this.source.getRows();
+        var obj = this;
+
+        $.each(rows, function(rowIndex, row){
+            $.each(row, function(colId, cell){
+                rows[rowIndex][colId] = obj.formatter.format(colId, cell);
+            });
+        });
+
         var html = this.template.getRowsHtml({
-            "rows": this.source.getRows(),
+            "rows": rows,
             "columns": this.definition.getColumns()
         });
 

@@ -1,18 +1,18 @@
 DTable
 ======
 
-This is an data table implementation, using jQuery 1.10.2 and [Nunjucks](http://jlongster.github.io/nunjucks/) for templating.
+This is a data table plugin, using jQuery 1.10.2 and [Nunjucks](http://jlongster.github.io/nunjucks/) for templating.
 Highly customizable, you can modify the template and use your own designe.
 
 DTable is module based, you can add/extend modules if you want to change default behaviors. You can even change the template
 engine by creating a new template module.
 
-The built in template is bootstrap 3 based table, but you can use anything from table to div per row.
+The built in template is bootstrap 3 based table, but you can use anything.
 
 How to use
 ----------
 
-This branch is used to develop DTable, you can find the built javascripts in the build directory.
+This branch is used to develop DTable, you can find the plugin in the build directory.
 
 For some examples, see server/web/index.php file in this branch.
 
@@ -21,7 +21,7 @@ You can find soruce files in the src folder, you dont need to use it in dev, in 
 Plans
 -------
 
-- column types (string, partial, image)
+- advanced formatter (string, partial, image)
 - editable rows
 -- column types (int, string. select, multiselect, boolean)
 
@@ -62,6 +62,10 @@ Options
         name: <module_name>,            # default: default
         options: <module_options>
     },
+    formatter: {
+        name: <module_name>,
+        options: <module_options>       # default: default
+    }
   }
 ```
 
@@ -98,7 +102,9 @@ Load table definition from url. Request is sent with POST or GET and the respons
             "order":  <false||true>,                                # column order enable/disable
             "html_tag_attr":   <false||{                            # attr for column, for example: "style": "color: #f00" => <td style="color: #f00"></td>
               <attr_name>: <attr_value>
-            }>
+            }>,
+            // not required, used by formatter module
+            "formatter": <formatter module specified options>       # here you can set column option for formatter
         }
     },
     # this generated from search, you dont have to add to json
@@ -195,6 +201,14 @@ Show loading message when the table refresh
 ** default **
 
 There is no options. It's uses html tag with data-dtable="loading" attr.
+
+### Formatter modules
+
+This modules used to format data, you can add formatter options in column definition.
+
+** default **
+
+default formatter does nothing, its just simple write out the given cell as string.
 
 Dev requirements
 ================

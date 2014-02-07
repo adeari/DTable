@@ -15,14 +15,26 @@ class Column extends Options
     public function __construct($title)
     {
         parent::__construct(
-            ["id", "title", "filter", "filter.placeholder", "order", "html_tag_attr"],
+            ["id", "title", "filter", "filter.placeholder", "order", "html_tag_attr", "formatter"],
             [
                 "title" => $title,
                 "filter" => false,
                 "order" => false,
-                "html_tag_attr" => false
+                "html_tag_attr" => false,
+                "formatter" => false,
             ]
         );
+    }
+
+    /**
+     * set the formatter options for this column.
+     * Options depend on selected formatter module.
+     *
+     * @param $value
+     */
+    public function formatter(Options $value)
+    {
+        $this->set("formatter", $value);
     }
 
     /**

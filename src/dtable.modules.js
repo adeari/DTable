@@ -87,6 +87,7 @@ var DTableModule = (function ($) {
     var MODULE_PAGINATION = 5;
     var MODULE_LOADING = 6;
     var MODULE_ORDER = 7;
+    var MODULE_FORMATTER = 8;
 
     /**
      * Base object to load resource
@@ -319,6 +320,15 @@ var DTableModule = (function ($) {
         getOrderBy: function(){}
     });
 
+    /**
+     * Formatter module, used to format a cell
+     *
+     * @type {*|extend}
+     */
+    _interfaces[MODULE_FORMATTER] = Class.extend({
+        format: function(columnId, value) {}
+    });
+
     var _modules = [];
 
     var DTableModule = Class.extend({
@@ -331,6 +341,7 @@ var DTableModule = (function ($) {
             this.MODULE_PAGINATION = MODULE_PAGINATION;
             this.MODULE_LOADING = MODULE_LOADING;
             this.MODULE_ORDER = MODULE_ORDER;
+            this.MODULE_FORMATTER = MODULE_FORMATTER;
 
             $.each(_interfaces, function(key){
                 _modules[key] = {};
