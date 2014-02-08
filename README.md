@@ -1,97 +1,89 @@
-DTable
-======
+It's a data table for jQuery. Highly customizable, it's uses js template to generate the table and
+the whole plugin module based, you can change/extend any part of the plugin.
 
-This is a data table plugin, using jQuery 1.10.2 and [Nunjucks](http://jlongster.github.io/nunjucks/) for templating.
-Highly customizable, you can modify the template and use your own designe.
+There is a php helper class to build table definition javascript, and another class to get results from the database, see it in the server
+directory.
 
-DTable is module based, you can add/extend modules if you want to change default behaviors. You can even change the template
-engine by creating a new template module.
+The built in template module uses [Nunjucks](http://jlongster.github.io/nunjucks/) for templating.
 
-The built in template is bootstrap 3 based table, but you can use anything.
 
-How to use
-----------
+***How to use***
 
-This branch is used to develop DTable, you can find the plugin in the build directory.
+``` javascript
+  $("#div").dtable({});
+```
 
-For some examples, see server/web/index.php file in this branch.
+Evry module has its own options, you can see it in the modules list.
 
-You can find soruce files in the src folder, you dont need to use it in dev, in the build folder you will find a js source map file.
-
-Plans
--------
-
-- advanced formatter (string, partial, image)
-- editable rows
--- column types (int, string. select, multiselect, boolean)
-
-Options
--------
+***Options***
 
 ``` text
   {
     definition: {
-        name: <module_name>,            # default: json_url
+        name: <module_name>,            # default: "json_url"
         options: <module_options>
     },
     template: {
-        name: <module_name>,            # default: nunjucks
+        name: <module_name>,            # default: "nunjucks"
         options: <module_options>
     },
     logger: {
-        name: <module_name>,            # default: default
+        name: <module_name>,            # default: "default"
         options: <module_options>
     },
     source: {
-        name: <module_name>,            # default: json_url
+        name: <module_name>,            # default: "json_url"
         options: <module_options>
     },
     search: {
-        name: <module_name>,            # default: default
+        name: <module_name>,            # default: "default"
         options: <module_options>
     },
     pagination: {
-        name: <module_name>,            # default: default
+        name: <module_name>,            # default: "default"
         options: <module_options>
     },
     loading: {
-        name: <module_name>,            # default: default
+        name: <module_name>,            # default: "default"
         options: <module_options>
     },
     order: {
-        name: <module_name>,            # default: default
+        name: <module_name>,            # default: "default"
         options: <module_options>
     },
     formatter: {
-        name: <module_name>,
-        options: <module_options>       # default: default
+        name: <module_name>,            # default: "false"
+        options: <module_options>
     }
   }
 ```
-
+-------------------------
 
 Modules
 -------
 
-### Definition modules
+-------------------------
+***Definition modules***
 
-**json_url**
+Its used to get the table definition, most of the configs goes from here.
 
-Load table definition from url. Request is sent with POST or GET and the response must be in json format.
+### "json_url"
+
+> Load table definition from url. Request is sent with POST or GET and the response must be in json format.
 
 
-  **options**:
+>  ***options***:
 
-```
+>```
     url: <string>               # url to download the json data, default: ""
     method: <"post"|"get">      # method for request, default: "get"
     data: {}                    # extra data to send, default: {}
     timestamp: <true|false>     # if true, it will add timestamp to prevent caching the page
 ```
 
-  **response json format**
+>  ***response json format***
 
-``` text
+> ``` text
 {
     "title": <string||false>,                                       # table title
     "columns": {
@@ -100,7 +92,7 @@ Load table definition from url. Request is sent with POST or GET and the respons
                                                                     # its work if all column title is false
             "filter": <false||true||{"placeholder": <string>}>,     # column filter, placeholder: input field placeholder
             "order":  <false||true>,                                # column order enable/disable
-            "html_tag_attr":   <false||{                            # attr for column, for example: "style": "color: #f00" => <td style="color: #f00"></td>
+            "html_tag_attr":   <false||{                            # html attr for column header
               <attr_name>: <attr_value>
             }>,
             // not required, used by formatter module
@@ -114,42 +106,52 @@ Load table definition from url. Request is sent with POST or GET and the respons
 }
 ```
 
-### Template modules
+-------------------------
+***Template modules***
 
-**nunjucks**
+Its used to renderer the template. There are 3 different template: table, rows, pagination.
 
-Requires [Nunjucks](http://jlongster.github.io/nunjucks/)
+### "nunjucks"
 
-   **options**
-``` text
+> Requires [Nunjucks](http://jlongster.github.io/nunjucks/) to render the table. Its loading the template from the view_dir.
+
+>***options***
+>``` text
     view_dir: <string>                  # url pointing to the view dir, default: "/view"
     table_template: <string>            # table template filename, default: "table.html"
     rows_template: <string>             # rows template filename, default: "rows.html"
     pagination_template: <string>       # pagination template filename, default: "pagination.html"
 ```
 
-### Logger modules
+-------------------------
+***Logger modules***
 
-**default**
+It's used to log errors/dev informations.
 
-   **options**
-``` text
+### "default"
+
+>***options***
+>``` text
     debug: <true||false>                # in debug mode debug information logged to the console
 ```
 
-### Source modules (data source)
+-------------------------
+***Source modules (data source)***
 
-**json_url**
+Its used to get the table rows.
 
-The module will put with post or get the query paramters. The response must be a json with the table rows.
+### "json_url"
 
-    **options**
-``` text
+>It will send the query string (built with search module) to the url, its require a json response.
+
+>***options***
+>``` text
     url: <string>                       # url to put query paramters, default: ""
     method: <"post"|"get">              # method to use, default: "post"
 ```
-    **query parameters**
-```
+
+>***query parameters***
+>```
     search: <string>,
     filter: "" || {
         <column_id>: <filter_text>,
@@ -163,8 +165,8 @@ The module will put with post or get the query paramters. The response must be a
     }
 ```
 
-    **response json format**
-```
+>***response json format***
+>```
     [
         {
             <col_id> : <value>,
@@ -174,48 +176,72 @@ The module will put with post or get the query paramters. The response must be a
     ]
 ```
 
-### Search modules
+-------------------------
+***Search modules***
 
-**default**
+Its used to create query string (see source modules, query parameters), and initiate table refresh. Its handle the search and filter fields.
 
-``` text
+### "default"
+
+> ``` text
     placeholder:                            # serch input field placeholder, default: "search...",
-    waiting: <int>                          # time in ms to wait after last modification in search paramters before submitting, default: 600
+    waiting: <int>                          # time in ms to wait after last modification in search
+                                            # paramters before submitting, default: 600
 ```
 
-### Pagination modules
+-------------------------
+***Pagination modules***
 
-**default**
+Its used to handle pagination related tasks.
 
-    **options**
-``` text
+### "default"
+
+>**options**
+>``` text
     show_first_and_last: <boolean>          # in pager, first and last page shown? default: true
     pages: <int>                            # how many page in the pager, odd number, default: 5
     rows_per_page: <int>                    # results per page, default: 20
 ```
 
-### Loading modules
+-------------------------
+***Loading modules***
 
-Show loading message when the table refresh
+Show loading message when the table refresh.
 
-** default **
+### "default"
 
-There is no options. It's uses html tag with data-dtable="loading" attr.
+> There is no options. It's uses html tag with data-dtable="loading" attr to show in the table header. If you want to make other
+> loading indicator, pleas create one and make a pull request.
 
-### Formatter modules
+-------------------------
+***Formatter modules***
 
-This modules used to format data, you can add formatter options in column definition.
+This modules used to format cells, you can add formatter options to column definition, available options is depend on formatter.
 
-** default **
+### "simple"
 
-default formatter does nothing, its just simple write out the given cell as string.
+> escape html, no options
 
+-------------------------
 Dev requirements
 ================
 
-nodejs, php5.4+ (for built in server), grunt, npm, bower
+- nodejs
+- php5.4+ (for built in server)
+- grunt
+- npm
+- bower
 
-after clone, run update.sh
+after clone, run update.sh to update npm and bower modules.
 
-`grunt build`: build the library
-`grunt server`: start server with live reloading on http://127.0.0.1:8080
+***usable grunt commands***
+
+- `grunt build`: build the plugin
+- `grunt server`: start server with live reloading on http://127.0.0.1:8080
+
+Plans
+-------
+
+- advanced formatter (string, partial, image)
+- editable rows
+-- column types (int, string. select, multiselect, boolean)

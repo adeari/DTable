@@ -1,117 +1,147 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>DTable</title>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
-    <style>
-        .loading
-        {
-            color: #000000;
-        }
-        .order-by a
-        {
-            color: #222222;
-        }
-        .order-by a:hover, .order-by a:active, .order-by a:focus {
-            outline: 0;
-            text-decoration: none;
-        }
-        .order-by .active
-        {
-            color: #0099FF;
-            text-decoration: none;
-        }
-    </style>
-</head>
-<body>
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="page-header">
-                <h1>DTable</h1>
-            </div>
+<?php require_once __DIR__ ."/../Parsedown.php" ?>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="DTable - data table for jQuery">
+        <meta name="author" content="Kubánka Péter">
 
-            <div id="table">
-                <div data-dtable="loading" class="loading">
-                    Loading...
+        <title>DTable - data table for jQuery</title>
+
+        <!-- original design: http://www.blacktie.co/2013/10/pratt-app-landing-page/ -->
+
+        <!-- Bootstrap CSS -->
+        <link href="/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/template/css/jasny-bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom styles for this template -->
+        <link href="/template/css/main.css" rel="stylesheet">
+
+        <!-- Font Awscome icons -->
+        <link href="/template/css/font-awesome.min.css" rel="stylesheet">
+
+        <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
+
+        <script src="/js/jquery.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+
+        <!-- just for development, not needed in prod -->
+        <script src="//localhost:35729/livereload.js"></script>
+
+    </head>
+    <body data-spy="scroll" data-target="#navigation" data-offset="100">
+
+        <!-- navigation -->
+
+        <div class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#"><b>DTable</b></a>
+                </div>
+                <div id="navigation" class="collapse navbar-collapse bs-js-navbar-scrollspy">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#home">Home</a></li>
+                        <li><a href="#examples">Examples</a></li>
+                        <li><a href="#documentation">Documentation</a></li>
+                        <li><a href="#contribute">Contribution</a></li>
+                    </ul>
                 </div>
             </div>
-
-            <div class="page-header">
-                <h1>DTable2</h1>
-            </div>
-
-            <div id="table2">
-                <div data-dtable="loading" class="loading">
-                    Loading...
-                </div>
-            </div>
-
         </div>
-    </div>
-</div>
 
-<script src="js/jquery.js"></script>
-<script src="js/nunjucks.js"></script>
-<script src="js/dtable/dtable.jquery.min.js"></script>
+        <!-- /navigation -->
 
-<!-- just for development, not needed in prod -->
-<script src="//localhost:35729/livereload.js"></script>
+        <!-- home -->
 
-<script>
+        <div id="headerwrap">
+            <div class="container">
+                <div class="row text-center">
+                    <div class="col-lg-12">
+                        <h1 id="home">Data Table for jQuery</h1>
+                        <div class="sec-row">
+                            DTable v0.5
+                            <a href="#" class="btn btn-primary btn-lg btn-labeled download-button">
+                                <span class="btn-label"><i class="fa fa-floppy-o"></i></span>Download
+                            </a>
+                            <a href="#" class="btn btn-default btn-lg btn-labeled">
+                                <span class="btn-label"><i class="fa fa-github"></i></span>GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /home -->
 
-    // extending an old module example
-    DTableModule.extendModule(DTableModule.MODULE_LOADING, 'default', 'test', {
-        init: function(options, dtable) {
-            this._super(options, dtable);
-            console.log('test');
-        }
-    });
+        <!-- examples -->
+        <div id="examplewrap">
+            <div class="container">
+                <div class="row text-center">
+                    <h2 id="examples">Examples</h2>
+                    <br><br>
+                    <div class="col-lg-4">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <h3>Basic table example</h3>
+                                <a href="dev.php" class="btn btn-success">Continue</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <h3>Create/extend modules</h3>
+                                <a href="create.php" class="btn btn-success">Continue</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="col-lg-4">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <h3>How to use formatter</h3>
+                                <a href="#" class="btn btn-success">Continue</a>
+                            </div>
+                        </div>
+                    </div>-->
+                </div>
+                <br>
+                <hr>
+            </div>
+        </div>
+        <!-- /examples -->
 
-    $().ready(function(){
+        <!-- docu -->
 
-        $("#table").dtable({
-            template: {
-                options: {
-                    view_dir: '/js/dtable/views'
-                }
-            },
-            definition: {
-                options: {
-                    url: "/source.php?table=example_01&def",
-                    timestamp: true
-                }
-            },
-            source: {
-                options: {
-                    url: "/source.php?table=example_01"
-                }
-            },
-            loading: {
-                name: 'test'
-            }
-        });
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 id="documentation">Documentation</h2>
+                </div>
+                <div class="col-lg-12">
+                    <?php echo Parsedown::instance()->parse(file_get_contents(__DIR__ . "/../../README.md")) ?>
+                </div>
+            </div>
+        </div>
+        <!-- /docu -->
 
-        $("#table2").dtable({
-            template: {
-                options: {
-                    view_dir: '/js/dtable/views'
-                }
-            },
-            definition: {
-                options: {
-                    url: "/source.php?table=example_02&def",
-                    timestamp: true
-                }
-            },
-            source: {
-                options: {
-                    url: "/source.php?table=example_02"
-                }
-            }
-        });
-    });
-</script>
-</body>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 id="contribute">Contribute</h2>
+                </div>
+                <div class="col-lg-12">
+                    Comming soon ...
+                </div>
+            </div>
+        </div>
+
+
+    </body>
 </html>
-
