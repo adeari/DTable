@@ -1,24 +1,24 @@
-<?php require_once __DIR__ ."/../Bootup.php" ?>
+<?php require_once __DIR__ . "/../Bootup.php" ?>
 <!DOCTYPE html>
 <html>
 <head>
     <title>DTable</title>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
     <style>
-        .loading
-        {
+        .loading {
             color: #000000;
         }
-        .order-by a
-        {
+
+        .order-by a {
             color: #222222;
         }
+
         .order-by a:hover, .order-by a:active, .order-by a:focus {
             outline: 0;
             text-decoration: none;
         }
-        .order-by .active
-        {
+
+        .order-by .active {
             color: #0099FF;
             text-decoration: none;
         }
@@ -29,7 +29,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="page-header">
-                <h1>DTable</h1>
+                <h1>DTable <small>showing all built in features</small></h1>
             </div>
 
             <div id="table">
@@ -41,18 +41,11 @@
     </div>
 </div>
 
-<script src="js/jquery.js"></script>
-<script src="js/nunjucks.js"></script>
-<script src="js/DTable/DTable.jquery.js"></script>
-
-<?php if (Config::$ISDEV): ?>
-<!-- just for development, not needed in prod -->
-<script src="//localhost:35729/livereload.js"></script>
-<?php endif; ?>
+<?php include __DIR__ . "/../_scripts.php" ?>
 
 <script>
 
-    $().ready(function(){
+    $().ready(function () {
 
         $("#table").dtable({
             template: {
@@ -77,6 +70,8 @@
         });
     });
 </script>
+
+<?php include __DIR__ . "/../_ga.php" ?>
 </body>
 </html>
 

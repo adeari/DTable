@@ -61,11 +61,11 @@
         <div class="col-lg-12 info">
             <div class="page-header">
                 <h1>DTable
-                    <small>template example</small>
+                    <small>custom template example</small>
                 </h1>
             </div>
 
-            <p>In this example we use custom template and isotope to animate/place the table "rows".</p>
+            <p>In this example I use custom template and isotope to animate/place the table "rows".</p>
         </div>
     </div>
 
@@ -77,15 +77,8 @@
 
 </div>
 
-<script src="/js/jquery.js"></script>
+<?php include __DIR__ . "/../_scripts.php" ?>
 <script src="/template/js/jquery.isotope.min.js"></script>
-<script src="/js/nunjucks.js"></script>
-<script src="/js/DTable/DTable.jquery.js"></script>
-
-<?php if (Config::$ISDEV): ?>
-<!-- just for development, not needed in prod -->
-<script src="//localhost:35729/livereload.js"></script>
-<?php endif; ?>
 
 <script>
 
@@ -139,5 +132,6 @@
     });
 
 </script>
+<?php include __DIR__ . "/../_ga.php" ?>
 </body>
 </html>

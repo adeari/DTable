@@ -42,28 +42,26 @@
 <body>
 <div class="container">
     <div class="row">
-        <div class="col-lg-12">
-            <p>When the table loading, an overlay shown over it. I use 2s sleep in the backend.</p>
-        </div>
-        <div class="col-lg-12">
+        <div class="col-lg-12 info">
             <div class="page-header">
-                <h1>DTable</h1>
+                <h1>DTable
+                    <small>how to add new features example</small>
+                </h1>
             </div>
 
-            <div id="table" style="position: relative"></div>
-
+            <p>In this example I use 2s sleep in all server query, to simulate slow response time, and I added a new loader and formatter module.</p>
         </div>
     </div>
+
+    <div id="table" style="position: relative">
+        <div data-dtable="loading" class="loading">
+            Loading...
+        </div>
+    </div>
+
 </div>
 
-<script src="js/jquery.js"></script>
-<script src="js/nunjucks.js"></script>
-<script src="js/DTable/DTable.jquery.js"></script>
-
-<?php if (Config::$ISDEV): ?>
-<!-- just for development, not needed in prod -->
-<script src="//localhost:35729/livereload.js"></script>
-<?php endif; ?>
+<?php include __DIR__ . "/../_scripts.php" ?>
 
 <script>
 
@@ -169,6 +167,9 @@
 
     });
 </script>
+
+<?php include __DIR__ . "/../_ga.php" ?>
+
 </body>
 </html>
 

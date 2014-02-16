@@ -149,5 +149,7 @@
         </div>
 
 
+        <?php include __DIR__ . "/../_ga.php" ?>
+
     </body>
 </html>
