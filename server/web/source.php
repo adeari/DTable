@@ -8,7 +8,7 @@ require_once __DIR__ . "/../Bootup.php";
 $referer = $_SERVER["HTTP_REFERER"];
 $url = parse_url($referer);
 
-if ($url['host'] !== 'dtable.devdrive.org')
+if ($url['host'] !== 'dtable.devdrive.org' && !\Config::$ISDEV)
 {
     header('HTTP/1.0 403 Forbidden');
     echo 'Forbidden';

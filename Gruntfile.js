@@ -138,7 +138,7 @@ module.exports = function (grunt) {
     grunt.registerTask('build', ['clean:build', 'uglify', 'concat', 'copy:build', 'copy:views', 'copy:readme']);
 
     // build for server
-    grunt.registerTask('build-server', ['clean:server', 'uglify', 'copy:build', 'copy:views', 'copy:readme'])
+    grunt.registerTask('build-server', ['clean:server', 'uglify', 'concat', 'copy:build', 'copy:views', 'copy:readme'])
 
     // start server
     grunt.registerTask('server', ['build', 'php', 'shell:createdb', 'watch']);

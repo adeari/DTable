@@ -179,11 +179,14 @@
                     last: this.pagination.getMaxPage(),
                     pages: pages,
                     active: this.pagination.getPage(),
-                    first_last: this.definition.getPagination().show_first_last
+                    first_last: this.definition.getPagination().show_first_last,
+                    rows_per_page: this.pagination.getRowsPerPage(),
+                    rows_per_page_select: this.pagination.getRowsPerPageSelect()
                 });
             }
 
             this.renderPaginationHtml(html);
+
         },
         /**
          * Render pagination html

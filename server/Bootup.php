@@ -1,8 +1,5 @@
 <?php
 
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
-
 $configFile = __DIR__ . "/../config/Config.php";
 
 if (!is_file($configFile))
@@ -11,6 +8,18 @@ if (!is_file($configFile))
 }
 
 require_once $configFile;
+
+if (Config::$ISDEV)
+{
+    error_reporting(E_ALL);
+    ini_set('display_errors', '1');
+}
+else
+{
+    error_reporting(false);
+    ini_set('display_errors', '0');
+}
+
 require_once __DIR__ . "/Loader.php";
 
 $loader = new \SplClassLoader("DTable", __DIR__);

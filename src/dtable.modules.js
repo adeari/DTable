@@ -99,8 +99,10 @@ var DTableModule = (function ($) {
      */
     var ResourceLoader = Class.extend({
         isLoaded: false,
-        init:     function (options, dtable) {},
-        loading:  function (callback) {}
+        init: function (options, dtable) {
+        },
+        loading: function (callback) {
+        }
     });
 
     var _interfaces = {};
@@ -116,7 +118,7 @@ var DTableModule = (function ($) {
          *
          * @returns {string}
          */
-        getTitle:      function () {
+        getTitle: function () {
         },
         /**
          * get the columns definition,
@@ -139,7 +141,7 @@ var DTableModule = (function ($) {
          *
          * @returns {{}}
          */
-        getColumns:    function () {
+        getColumns: function () {
         },
         /**
          *  get the pagination definition
@@ -168,16 +170,18 @@ var DTableModule = (function ($) {
          *
          * @returns {{}}
          */
-        getSearch:        function () {
+        getSearch: function () {
         },
         /**
          * return true if one of the column deff has filter enabled
          */
-        hasColumnFilter: function(){},
+        hasColumnFilter: function () {
+        },
         /**
          * return true if one of the column has title
          */
-        hasColumnTitle: function(){}
+        hasColumnTitle: function () {
+        }
 
     });
 
@@ -191,17 +195,20 @@ var DTableModule = (function ($) {
          * Return the rendered table html
          * @param params
          */
-        getTableHtml:      function (params) {},
+        getTableHtml: function (params) {
+        },
         /**
          * Retrun the rendered rows html
          * @param params
          */
-        getRowsHtml:       function (params) {},
+        getRowsHtml: function (params) {
+        },
         /**
          * Return the rendered pagination html
          * @param params
          */
-        getPaginationHtml: function (params) {}
+        getPaginationHtml: function (params) {
+        }
     });
 
     /**
@@ -215,12 +222,14 @@ var DTableModule = (function ($) {
          *
          * @param msg
          */
-        error: function (msg) { },
+        error: function (msg) {
+        },
         /**
          * Log info
          * @param msg
          */
-        info:  function (msg) { }
+        info: function (msg) {
+        }
     });
 
     /**
@@ -237,8 +246,10 @@ var DTableModule = (function ($) {
          *   ...
          * }, ... ]
          */
-        getRows: function(){},
-        getCount: function(){}
+        getRows: function () {
+        },
+        getCount: function () {
+        }
     });
 
     /**
@@ -251,11 +262,13 @@ var DTableModule = (function ($) {
         /**
          * call it when a search parameter changed, it will call dtable.update
          */
-        update: function() {},
+        update: function () {
+        },
         /**
          * get the query params to post
          */
-        getParams: function(){}
+        getParams: function () {
+        }
     });
 
     /**
@@ -267,41 +280,55 @@ var DTableModule = (function ($) {
          * current page
          * @return int
          */
-        getPage: function(){},
+        getPage: function () {
+        },
         /**
          * set current page
          * @param page
          */
-        setPage: function(page){},
+        setPage: function (page) {
+        },
         /**
          * have to show first and last page?
          */
-        getShowFirstLast: function(){},
+        getShowFirstLast: function () {
+        },
         /**
          * number of pages to show in pagination, odd number!
          */
-        getPageNum: function(){},
+        getPageNum: function () {
+        },
         /**
          * get rows per page
          */
-        getRowsPerPage: function(){},
+        getRowsPerPage: function () {
+        },
         /**
          * set rows per page
          * @param page
          */
-        setRowsPerPage: function(page){},
+        setRowsPerPage: function (page) {
+        },
         /**
          * max page num
          */
-        getMaxPage: function(){},
+        getMaxPage: function () {
+        },
         /**
          * array contains pages to show in pagination
          */
-        getPagesArr: function(){},
+        getPagesArr: function () {
+        },
         /**
          * offset to post in query
          */
-        getOffset: function(){}
+        getOffset: function () {
+        },
+        /**
+         * rows per page select, return array with options
+         */
+        getRowsPerPageSelect: function () {
+        }
     });
 
     /**
@@ -310,8 +337,10 @@ var DTableModule = (function ($) {
      * @type {*|extend}
      */
     _interfaces[MODULE_LOADING] = Class.extend({
-        startLoading: function(){},
-        stopLoading: function(){}
+        startLoading: function () {
+        },
+        stopLoading: function () {
+        }
     });
 
     /**
@@ -320,7 +349,8 @@ var DTableModule = (function ($) {
      * @type {*|extend}
      */
     _interfaces[MODULE_ORDER] = Class.extend({
-        getOrderBy: function(){}
+        getOrderBy: function () {
+        }
     });
 
     /**
@@ -329,15 +359,24 @@ var DTableModule = (function ($) {
      * @type {*|extend}
      */
     _interfaces[MODULE_FORMATTER] = Class.extend({
-        format: function(columnId, value) {}
+        format: function (columnId, value) {
+        }
     });
 
-    _interfaces[MODULE_CORE] = Class.extend({});
+    _interfaces[MODULE_CORE] = Class.extend({
+        init: function (options, table) {
+        },
+        /**
+         * Update table imediately, use search module update to queue
+         */
+        update: function () {
+        }
+    });
 
     var _modules = [];
 
     var DTableModule = Class.extend({
-        init:      function () {
+        init: function () {
             this.MODULE_TEMPLATE = MODULE_TEMPLATE;
             this.MODULE_DEFINITION = MODULE_DEFINITION;
             this.MODULE_LOGGER = MODULE_LOGGER;
@@ -349,7 +388,7 @@ var DTableModule = (function ($) {
             this.MODULE_FORMATTER = MODULE_FORMATTER;
             this.MODULE_CORE = MODULE_CORE;
 
-            $.each(_interfaces, function(key){
+            $.each(_interfaces, function (key) {
                 _modules[key] = {};
             });
         },
@@ -375,8 +414,7 @@ var DTableModule = (function ($) {
 
             _modules[type][name] = _interfaces[type].extend(props);
         },
-        extendModule: function(type, extend, newName, props)
-        {
+        extendModule: function (type, extend, newName, props) {
             if (_modules[type] == undefined) {
                 throw "Invalid DTableModule type";
             }

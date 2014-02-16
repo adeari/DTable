@@ -195,6 +195,7 @@ Its used to handle pagination related tasks.
     show_first_and_last: <boolean>          # in pager, first and last page shown? default: true
     pages: <int>                            # how many page in the pager, odd number, default: 5
     rows_per_page: <int>                    # results per page, default: 20
+    rows_per_page_select: [<int>, ...]      # rows per page select, default: [20, 50, 100]
 ```
 
 -------------------------

@@ -1,3 +1,4 @@
+<?php require_once __DIR__ ."/../Bootup.php" ?>
 <?php require_once __DIR__ ."/../Parsedown.php" ?>
 <html lang="en">
     <head>
@@ -26,8 +27,10 @@
         <script src="/js/jquery.js"></script>
         <script src="/js/bootstrap.min.js"></script>
 
+        <?php if (Config::$ISDEV): ?>
         <!-- just for development, not needed in prod -->
         <script src="//localhost:35729/livereload.js"></script>
+        <?php endif; ?>
 
     </head>
     <body data-spy="scroll" data-target="#navigation" data-offset="100">

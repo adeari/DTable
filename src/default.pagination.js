@@ -15,7 +15,8 @@
             var defaults = {
                 show_first_and_last: true,
                 pages: 5,
-                rows_per_page: 20
+                rows_per_page: 20,
+                rows_per_page_select: [20, 50, 100]
             };
 
             this.page = 1;
@@ -29,6 +30,16 @@
                 var page = link.attr("data-page");
 
                 obj.setPage(page);
+
+                obj.dtable.update();
+
+                return false;
+            });
+
+            dtable.table.on("change", '[data-dtable="rows-per-page-select"]', function(){
+                var rowsPerPage = $(this).val();
+
+                obj.setRowsPerPage(rowsPerPage);
 
                 obj.dtable.update();
 
@@ -102,6 +113,14 @@
             }
 
             return pages;
+        },
+        setRowsPerPageSelect: function(s)
+        {
+            this.options.rows_per_page_select = s;
+        },
+        getRowsPerPageSelect: function()
+        {
+            return this.options.rows_per_page_select;
         }
     });
 
