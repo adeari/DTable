@@ -4,7 +4,7 @@ so you can add new features easily.
 
 The built in template module uses [Nunjucks](http://jlongster.github.io/nunjucks/), you have to load it before DTable init.
 
-***Examples**/
+***Examples***
 See [http://dtable.devdrive.org](http://dtable.devdrive.org)
 
 ***Download***
