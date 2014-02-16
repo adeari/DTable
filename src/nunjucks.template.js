@@ -3,9 +3,11 @@
  *  ======
  *
  * https://github.com/kubanka-peter/dtable
- * Copyright (c) 2014 Kubi; Licensed MIT
+ *
+ * Contributors: Kubi
+ *
+ * Created by Kubi; Licensed MIT
  */
-
 (function (DTableModule, nunjucks) {
 
     DTableModule.newModule(DTableModule.MODULE_TEMPLATE, "nunjucks", {

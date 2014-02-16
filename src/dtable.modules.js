@@ -3,9 +3,11 @@
  *  ======
  *
  * https://github.com/kubanka-peter/dtable
- * Copyright (c) 2014 Kubi; Licensed MIT
+ *
+ * Contributors: Kubi
+ *
+ * Created by Kubi; Licensed MIT
  */
-
 var DTableModule = (function ($) {
     /* Simple JavaScript Inheritance
      * By John Resig http://ejohn.org/

@@ -1,3 +1,13 @@
+/*
+ *  DTable
+ *  ======
+ *
+ * https://github.com/kubanka-peter/dtable
+ *
+ * Contributors: Kubi
+ *
+ * Created by Kubi; Licensed MIT
+ */
 (function (DTableModule, $) {
 
     DTableModule.newModule(DTableModule.MODULE_CORE, "firefly", {

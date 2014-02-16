@@ -79,7 +79,7 @@
 <script src="/js/jquery.js"></script>
 <script src="/template/js/jquery.isotope.min.js"></script>
 <script src="/js/nunjucks.js"></script>
-<script src="/js/dtable/dtable.jquery.min.js"></script>
+<script src="/js/DTable/DTable.jquery.js"></script>
 
 <!-- just for development, not needed in prod -->
 <script src="//localhost:35729/livereload.js"></script>

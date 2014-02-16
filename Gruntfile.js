@@ -1,30 +1,29 @@
 'use strict';
 
-module.exports = function (grunt)
-{
+module.exports = function (grunt) {
     var sourceFiles = ['src/dtable.modules.js', 'src/*'];
     var webdir = "server/web"
     // Project configuration.
     grunt.initConfig({
         // Metadata.
         webdir: "server/web",
-        pkg:     grunt.file.readJSON('package.json'),
-        banner:  '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
-                     '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
-                     '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
-                     '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
+        pkg: grunt.file.readJSON('package.json'),
+        banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
+            '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
+            '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
+            '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
             ' Licensed MIT */\n',
-        uglify:  {
+        uglify: {
             build: {
-                files:   {
+                files: {
                     'build/<%= pkg.name %>.jquery.min.js': sourceFiles
                 },
                 options: {
                     banner: '<%= banner %>',
-                    sourceMap: function(path) {
+                    sourceMap: function (path) {
                         return path + ".map";
                     },
-                    sourceMappingURL: function(path) {
+                    sourceMappingURL: function (path) {
                         return path.slice(6) + ".map";
                     }
                 }
@@ -32,9 +31,10 @@ module.exports = function (grunt)
         },
         clean: {
             server: ["build", "<%= webdir %>/js", "<%= webdir %>/css", "<%= webdir %>/fonts"],
-            build: ["build", "<%= webdir %>/js", "<%= webdir %>/css", "<%= webdir %>/fonts"]
+            build: ["build", "<%= webdir %>/js", "<%= webdir %>/css", "<%= webdir %>/fonts"],
+            publish: ["tmp"]
         },
-        copy:    {
+        copy: {
             build: {
                 files: [
                     {expand: true, cwd: 'build', src: ['**'], dest: webdir + '/js/<%= pkg.name %>/'},
@@ -49,9 +49,19 @@ module.exports = function (grunt)
                     {expand: true, cwd: 'views', src: ['**'], dest: '<%= webdir %>/js/<%= pkg.name %>/views'},
                     {expand: true, cwd: 'views', src: ['**'], dest: 'build/views'}
                 ]
+            },
+            readme: {
+                files: [
+                    {expand: true, src: ['README.md'], dest: 'build'}
+                ]
+            },
+            publish: {
+                files: [
+                    {expand: true, cwd: 'publish', src: ['**'], dest: '<%= webdir %>/publish'},
+                ]
             }
         },
-        watch:   {
+        watch: {
             options: {
                 livereload: true
             },
@@ -84,6 +94,34 @@ module.exports = function (grunt)
                 },
                 command: "php server/CreateTables.php --no-confirmation"
             }
+        },
+        concat: {
+            options: {
+                separator: ";",
+                stripBanners: true,
+                banner: '<%= banner %>'
+            },
+            build: {
+                src: sourceFiles,
+                dest: 'build/<%= pkg.name %>.jquery.js'
+            }
+        },
+        compress: {
+            tarIt: {
+                options: {
+                    mode: 'tar',
+                    archive: 'tmp/<%= pkg.name %>.v<%= pkg.version %>.tar'
+                },
+                expand: true,
+                cwd: 'build',
+                src: ['**/*']
+            },
+            gzIt: {
+                expand: true,
+                cwd: 'tmp',
+                src: '**/*',
+                dest: 'publish'
+            }
         }
     });
 
@@ -91,17 +129,22 @@ module.exports = function (grunt)
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-php');
     grunt.loadNpmTasks('grunt-shell');
 
     // build prod files
-    grunt.registerTask('build', ['clean:build', 'uglify', 'copy']);
+    grunt.registerTask('build', ['clean:build', 'uglify', 'concat', 'copy:build', 'copy:views', 'copy:readme']);
 
     // build for server
-    grunt.registerTask('build-server', ['clean:server', 'uglify', 'copy'])
+    grunt.registerTask('build-server', ['clean:server', 'uglify', 'copy:build', 'copy:views', 'copy:readme'])
 
     // start server
-    grunt.registerTask('server', ['build', 'php', 'shell', 'watch']);
+    grunt.registerTask('server', ['build', 'php', 'shell:createdb', 'watch']);
+
+    // publish new version
+    grunt.registerTask('publish', ['build', 'clean:publish', 'compress:tarIt', 'compress:gzIt', 'clean:publish', 'copy:publish']);
 
     // Default task
     grunt.registerTask('default', ['build']);

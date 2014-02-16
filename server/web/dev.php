@@ -42,7 +42,7 @@
 
 <script src="js/jquery.js"></script>
 <script src="js/nunjucks.js"></script>
-<script src="js/dtable/dtable.jquery.min.js"></script>
+<script src="js/DTable/DTable.jquery.js"></script>
 
 <!-- just for development, not needed in prod -->
 <script src="//localhost:35729/livereload.js"></script>
@@ -54,7 +54,7 @@
         $("#table").dtable({
             template: {
                 options: {
-                    view_dir: '/js/dtable/views'
+                    view_dir: '/js/DTable/views'
                 }
             },
             definition: {
