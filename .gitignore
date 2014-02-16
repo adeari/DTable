@@ -5,3 +5,5 @@ server/web/js/*
 server/web/css/*
 server/web/fonts/*
 config/Config.php
+build/*
+tmp/*

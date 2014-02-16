@@ -13,7 +13,8 @@ class Config
         $PDO_PWD = "changeme",
         $TABLES = array(
                     'example_01' => '\DTable\Table\Example',
-                    'example_02' => '\DTable\Table\Example2'
+                    'example_02' => '\DTable\Table\Example2',
+                    'example_03' => '\DTable\Table\Example3'
                 ),
         $ROWNUM = 1000,
         $LIPSUM = "ut|vitae|ligula|sed|nunc|accumsan|tempus|tincidunt|in|orci|suspendisse|eget|risus|id|fermentum|cursus|at|eu|augue|curabitur|quam|nulla|rhoncus|quis|eros|placerat|interdum|odio|quisque|scelerisque|urna|a|porta|lorem|convallis|vivamus|lectus|duis|mauris|felis|porttitor|nec|lacinia|volutpat|nibh|auctor|turpis|vel|dapibus|nisl|integer|tortor|dolor|ornare|feugiat|ac|pellentesque|lobortis|eleifend|nullam|tellus|consequat|malesuada|arcu|condimentum|pulvinar|gravida|semper|maecenas|imperdiet|ipsum|et|dignissim|sodales";
