@@ -1,0 +1,9 @@
+{% for row in rows %}
+    <div class="panel panel-default col-xs-2 box">
+        <div class="panel-body">
+            {% for column_id, column_def in columns %}
+                {{ row[column_id] }}
+            {% endfor %}
+        </div>
+    </div>
+{% endfor %}

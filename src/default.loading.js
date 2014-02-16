@@ -22,6 +22,7 @@
         startLoading: function(){
 
             var obj = this;
+            this.dtable.table.trigger("dtable.start_loading");
 
             if (!this.is_loading && this.enabled)
             {
@@ -38,6 +39,8 @@
             }
         },
         stopLoading: function(){
+
+            this.dtable.table.trigger("dtable.stop_loading");
 
             if (this.enabled)
             {

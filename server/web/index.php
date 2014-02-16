@@ -69,7 +69,7 @@
                             <a href="#" class="btn btn-primary btn-lg btn-labeled download-button">
                                 <span class="btn-label"><i class="fa fa-floppy-o"></i></span>Download
                             </a>
-                            <a href="#" class="btn btn-default btn-lg btn-labeled">
+                            <a href="https://github.com/kubanka-peter/DTable" class="btn btn-default btn-lg btn-labeled" target="_blank">
                                 <span class="btn-label"><i class="fa fa-github"></i></span>GitHub
                             </a>
                         </div>
@@ -83,13 +83,23 @@
         <div id="examplewrap">
             <div class="container">
                 <div class="row text-center">
-                    <h2 id="examples">Examples</h2>
+                    <span id="examples"></span>
                     <br><br>
                     <div class="col-lg-4">
                         <div class="panel panel-default">
                             <div class="panel-body">
-                                <h3>Basic table example</h3>
-                                <a href="dev.php" class="btn btn-success">Continue</a>
+                                <h3>Simple example</h3>
+                                <p class="description">Showing all features of DTable</p>
+                                <a href="/dev.php" class="btn btn-success">Continue</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <h3>Custom template</h3>
+                                <p class="description">It's showing the flexibility of DTable, we use panels instead of table rows.</p>
+                                <a href="/view.php" class="btn btn-success">Continue</a>
                             </div>
                         </div>
                     </div>
@@ -97,18 +107,11 @@
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <h3>Create/extend modules</h3>
-                                <a href="create.php" class="btn btn-success">Continue</a>
+                                <p class="description">How to add new features.</p>
+                                <a href="/create.php" class="btn btn-success">Continue</a>
                             </div>
                         </div>
                     </div>
-                    <!--<div class="col-lg-4">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <h3>How to use formatter</h3>
-                                <a href="#" class="btn btn-success">Continue</a>
-                            </div>
-                        </div>
-                    </div>-->
                 </div>
                 <br>
                 <hr>

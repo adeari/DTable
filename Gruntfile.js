@@ -2,7 +2,7 @@
 
 module.exports = function (grunt)
 {
-    var sourceFiles = ['src/dtable.modules.js', 'src/dtable.jquery.js', 'src/*'];
+    var sourceFiles = ['src/dtable.modules.js', 'src/*'];
     var webdir = "server/web"
     // Project configuration.
     grunt.initConfig({

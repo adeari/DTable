@@ -31,7 +31,7 @@
             this.columns = {};
             this.columns[link.attr("data-dtable-column")] = order;
 
-            this.dtable.search.update();
+            this.dtable.update();
         },
         getOrderBy: function() {
             return this.columns;

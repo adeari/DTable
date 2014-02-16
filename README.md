@@ -1,10 +1,8 @@
-It's a data table for jQuery. Highly customizable, it's uses js template to generate the table and
-the whole plugin module based, you can change/extend any part of the plugin.
+It's a data table for jQuery. I made it to study grunt and it's first part of my Symfony 2 admin boundle.  The plugin is highly customizable,
+It's uses html template to generate the table (it's not necessary to be a table, can be anything see "Custom template" example) and the whole plugin module based,
+so you can add new features easily.
 
-There is a php helper class to build table definition javascript, and another class to get results from the database, see it in the server
-directory.
-
-The built in template module uses [Nunjucks](http://jlongster.github.io/nunjucks/) for templating.
+The built in template module uses [Nunjucks](http://jlongster.github.io/nunjucks/).
 
 
 ***How to use***
@@ -98,11 +96,7 @@ Its used to get the table definition, most of the configs goes from here.
             // not required, used by formatter module
             "formatter": <formatter module specified options>       # here you can set column option for formatter
         }
-    },
-    # this generated from search, you dont have to add to json
-    "search": <false || {
-        placeholder: <string>               # search input field placeholder text
-    }>
+    }
 }
 ```
 
@@ -243,5 +237,7 @@ Plans
 -------
 
 - advanced formatter (string, partial, image)
+- a new loader module
+- better error handling
 - editable rows
 -- column types (int, string. select, multiselect, boolean)

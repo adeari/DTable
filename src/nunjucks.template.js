@@ -38,7 +38,7 @@
                 if (obj.template.table && obj.template.rows && obj.template.pagination) {
                     obj.isLoaded = true;
 
-                    callback();
+                    callback.call(obj.dtable);
                 }
             }
 

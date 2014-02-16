@@ -30,8 +30,8 @@
 
             z-index:199;
 
-            background:#000;
-            opacity:0.5;
+            background:#fff;
+            opacity:0.8;
 
             border-radius: inherit;
         }
@@ -42,15 +42,14 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
+            <p>When the table loading, an overlay shown over it. I use 2s sleep in the backend.</p>
+        </div>
+        <div class="col-lg-12">
             <div class="page-header">
                 <h1>DTable</h1>
             </div>
 
-            <div id="table" style="position: relative">
-
-            </div>
-
-            <a href="#" onclick="$('#table').loading();">asdf</a>
+            <div id="table" style="position: relative"></div>
 
         </div>
     </div>
@@ -65,13 +64,6 @@
 
 <script>
 
-    // extending an old module example
-    DTableModule.extendModule(DTableModule.MODULE_LOADING, 'default', 'test', {
-        init: function(options, dtable) {
-            this._super(options, dtable);
-            console.log('test');
-        }
-    });
 
     $.fn.loading = function(state, addClass) {
 
@@ -113,35 +105,34 @@
         });
 
         return this;
-
     };
 
+    // extend module
+    DTableModule.extendModule(DTableModule.MODULE_FORMATTER, "simple", "new_module_name", {
+        format: function(colId, value){
+            // you can call parent function with _super
+            value = this._super(colId, value);
+
+            return colId + this.options.separator + value;
+        }
+    });
+
+    // create new module
+    //   for interface, see dtable.modules.js and some implementation to check what you have to do
+    DTableModule.newModule(DTableModule.MODULE_LOADING, "overlay", {
+        init: function(options, dtable)
+        {
+            this.dtable = dtable;
+        },
+        startLoading: function(){
+            this.dtable.table.loading();
+        },
+        stopLoading: function(){
+            this.dtable.table.loading(false);
+        }
+    });
+
     $().ready(function(){
-
-        // extend module
-        DTableModule.extendModule(DTableModule.MODULE_FORMATTER, "simple", "new_module_name", {
-            format: function(colId, value){
-                // you can call parent function with _super
-                value = this._super(colId, value);
-
-                return colId + this.options.separator + value;
-            }
-        });
-
-        // create new module
-        //   for interface, see dtable.modules.js and some implementation to check what you have to do
-        DTableModule.newModule(DTableModule.MODULE_LOADING, "overlay", {
-            init: function(options, dtable)
-            {
-                this.dtable = dtable;
-            },
-            startLoading: function(){
-                this.dtable.table.loading();
-            },
-            stopLoading: function(){
-                this.dtable.table.loading(false);
-            }
-        });
 
         // we use example_02, its have 2s sleep on loading
         $("#table").dtable({

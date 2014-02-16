@@ -88,6 +88,7 @@ var DTableModule = (function ($) {
     var MODULE_LOADING = 6;
     var MODULE_ORDER = 7;
     var MODULE_FORMATTER = 8;
+    var MODULE_CORE = 9;
 
     /**
      * Base object to load resource
@@ -329,6 +330,8 @@ var DTableModule = (function ($) {
         format: function(columnId, value) {}
     });
 
+    _interfaces[MODULE_CORE] = Class.extend({});
+
     var _modules = [];
 
     var DTableModule = Class.extend({
@@ -342,6 +345,7 @@ var DTableModule = (function ($) {
             this.MODULE_LOADING = MODULE_LOADING;
             this.MODULE_ORDER = MODULE_ORDER;
             this.MODULE_FORMATTER = MODULE_FORMATTER;
+            this.MODULE_CORE = MODULE_CORE;
 
             $.each(_interfaces, function(key){
                 _modules[key] = {};

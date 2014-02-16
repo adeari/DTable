@@ -33,7 +33,7 @@
 
                 obj.data = data;
                 obj.isLoaded = true;
-                callback();
+                callback.call(obj.dtable);
             }
 
             function error() {

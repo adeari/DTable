@@ -84,3 +84,9 @@ hr {
 {
     margin-left: 30px;
 }
+
+#examplewrap .description
+{
+    line-height: 18px;
+    font-size: 16px;
+}

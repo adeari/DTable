@@ -20,6 +20,8 @@
 
                 obj.setPage(page);
 
+                obj.dtable.update();
+
                 return false;
             });
 
@@ -30,8 +32,6 @@
         },
         setPage: function(page){
             this.page = parseInt(page);
-
-            this.dtable.search.update();
         },
         // pagination first and last page show?
         getShowFirstLast: function(){

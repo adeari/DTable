@@ -69,7 +69,7 @@
                     }
                 });
 
-                callback();
+                callback.call(obj.dtable);
             }
 
             var type = "POST";
