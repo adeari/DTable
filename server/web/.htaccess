@@ -1,0 +1,5 @@
+
+RewriteEngine On
+RewriteCond %{HTTP_REFERER} !^http://(.+\.)?devdrive\.org/ [NC]
+RewriteCond %{HTTP_REFERER} !^$
+RewriteRule .*\.(jpe?g|gif|bmp|png|css|map|js)$ - [F]
