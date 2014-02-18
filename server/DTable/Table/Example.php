@@ -13,19 +13,23 @@ class Example extends Table
 
         $this->addColumn("col_a", "Column A")
             ->order()
-            ->attributes(["style" => "color: #f00"]);
+            ->attributes(array('class' => 'col-xs-3'));
 
         $this->addColumn("col_b", "Column B")
             ->order()
-            ->filter("filter me");
+            ->filter("filter me")
+            ->attributes(array('class' => 'col-xs-3'));
 
         $this->addColumn("col_c", "Column C")
-            ->order();
+            ->order()
+            ->attributes(array('class' => 'col-xs-2'));
 
         $this->addColumn("col_d", "Column D")
-            ->filter();
+            ->filter()
+            ->attributes(array('class' => 'col-xs-2'));
 
         $this->addColumn("col_e", "Column E")
-            ->filter("");
+            ->filter("")
+            ->attributes(array('class' => 'col-xs-2'));
     }
 }

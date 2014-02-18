@@ -12,10 +12,12 @@ class Example2 extends Table
         $this->set("db_table", "example_02");
 
         $this->addColumn("name", "Name")
-            ->order();
+            ->order()
+            ->attributes(array('class' => 'col-xs-6'));
 
         $this->addColumn("value", "value")
             ->order()
-            ->filter("filter me");
+            ->filter("filter me")
+            ->attributes(array('class' => 'col-xs-6'));
     }
 }
