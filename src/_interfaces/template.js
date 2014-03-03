@@ -1,6 +1,9 @@
 (function(IFace){
 
     IFace.add('template', {
+        isLoaded: false,
+        loading: function (callback) {
+        },
         /**
          * Return the rendered table html
          * @param params

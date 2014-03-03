@@ -1,6 +1,9 @@
 (function(IFace){
 
     IFace.add('source', {
+        isLoaded: false,
+        loading: function (callback) {
+        },
         /**
          * must return the following format:
          *

@@ -1,6 +1,9 @@
 (function(IFace){
 
     IFace.add('definition', {
+        isLoaded: false,
+        loading: function (callback) {
+        },
         /**
          * get the table title
          *

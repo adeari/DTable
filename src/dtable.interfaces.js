@@ -75,23 +75,49 @@ var DTableInterfaces = (function ($) {
     var interfaces = {};
 
     var IFace = Class.extend({
+        getIFaceNames: function()
+        {
+            var result = [];
+
+            for (var name in interfaces)
+            {
+                result.push(name);
+            }
+
+            return result;
+        },
+        isExist: function(name)
+        {
+            if (interfaces[name] == undefined)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        },
         add: function (name, iface)
         {
-            if (interfaces[name] != undefined)
+            if (this.isExist(name))
             {
                 throw "Interface " + name + " is exists";
             }
 
-            interfaces[name] = Class.extend(iface);
+            interfaces[name] = this.extend(iface);
         },
         get: function (name)
         {
-            if (interfaces[name] == undefined)
+            if (!this.isExist(name))
             {
                 throw "Interface " + name + " is not exists";
             }
 
             return interfaces[name];
+        },
+        extend: function(props)
+        {
+            return Class.extend(props);
         }
     });
 
