@@ -1,3 +1,3 @@
 # v0.5.1
 
-- refactoring
+- refactoring (interface manager)
