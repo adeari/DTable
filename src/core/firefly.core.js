@@ -11,55 +11,7 @@
 (function (DTableModule, $) {
 
     DTableModule.newModule(DTableModule.MODULE_CORE, "firefly", {
-        /**
-         * Initialize
-         *
-         * @param options
-         * @param table
-         */
-        init: function (options, table) {
-            var defaults = {
-                definition: {
-                    name: "json_url",
-                    options: {}
-                },
-                template: {
-                    name: "nunjucks",
-                    options: {}
-                },
-                logger: {
-                    name: "default",
-                    options: {}
-                },
-                source: {
-                    name: "json_url",
-                    options: {}
-                },
-                search: {
-                    name: "default",
-                    options: {}
-                },
-                pagination: {
-                    name: "default",
-                    options: {}
-                },
-                loading: {
-                    name: "default",
-                    options: {}
-                },
-                order: {
-                    name: "default",
-                    options: {}
-                },
-                formatter: {
-                    name: false,
-                    options: {}
-                }
-            };
-
-            // setting defaults
-            this.table = table;
-            this.options = $.extend(true, {}, defaults, options);
+        configure: function () {
 
             // init modules
             this.definition = DTableModule.getModule(DTableModule.MODULE_DEFINITION, this.options.definition.name, this.options.definition.options, this);

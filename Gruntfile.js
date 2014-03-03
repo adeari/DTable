@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function (grunt) {
-    var sourceFiles = ['src/dtable.modules.js', 'src/*'];
+    var sourceFiles = ['src/dtable.interfaces.js', 'src/_interfaces/*.js' , 'src/dtable.modules.js', 'src/**/*.js'];
     var webdir = "server/web"
     // Project configuration.
     grunt.initConfig({
@@ -38,7 +38,7 @@ module.exports = function (grunt) {
             build: {
                 files: [
                     {expand: true, cwd: 'build', src: ['**'], dest: webdir + '/js/<%= pkg.name %>/'},
-                    {expand: true, cwd: 'src', src: ['**'], dest: webdir + '/js/<%= pkg.name %>/src/'},
+                    {expand: true, cwd: 'src', src: ['**'], dest: webdir + '/js/src/'},
                     {src: "bower_components/jquery/jquery.js", dest: "<%= webdir %>/js/jquery.js"},
                     {src: "bower_components/nunjucks/browser/nunjucks.js", dest: "<%= webdir %>/js/nunjucks.js"},
                     {expand: true, cwd: 'bower_components/bootstrap/dist', src: ['**'], dest: '<%= webdir %>/'}
@@ -66,7 +66,7 @@ module.exports = function (grunt) {
                 livereload: true
             },
             scripts: {
-                files: 'src/*.js',
+                files: 'src/**/*.js',
                 tasks: ['build-server']
             },
             view: {
