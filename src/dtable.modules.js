@@ -9,21 +9,8 @@
  * Created by Kubi; Licensed MIT
  */
 var DTableModule = (function (IFace, $) {
-    /**
-     * Base object to load resource
-     *
-     * @type {*|extend}
-     */
-    var ResourceLoader = Class.extend({
-        isLoaded: false,
-        getIsLoaded: function () {
-            return this.isLoaded;
-        },
-        loading: function (callback) {
-        }
-    });
 
-    var _modules = {};
+    var _modules = false;
 
     var DTableModule = IFace.extend({
         init: function () {
@@ -37,10 +24,17 @@ var DTableModule = (function (IFace, $) {
             this.MODULE_ORDER = 'order';
             this.MODULE_FORMATTER = 'formatter';
             this.MODULE_CORE = 'core';
+            this.MODULE_FORMATTER_WIDGET = 'formatter_widget';
+        },
+        initModules: function(){
+            if (_modules == false)
+            {
+                _modules = {};
 
-            $.each(IFace.getIFaceNames(), function(key, name){
-                _modules[name] = {};
-            });
+                $.each(IFace.getIFaceNames(), function(key, name){
+                    _modules[name] = {};
+                });
+            }
         },
         check: function(type)
         {
@@ -50,6 +44,8 @@ var DTableModule = (function (IFace, $) {
         },
         isExist: function(type, name)
         {
+            this.initModules();
+
             if (_modules[type] == undefined || _modules[type][name] == undefined)
             {
                 return false;
@@ -60,6 +56,8 @@ var DTableModule = (function (IFace, $) {
             }
         },
         getModule: function (type, name, options, dtable) {
+
+            this.initModules();
 
             this.check(type);
 
@@ -72,6 +70,8 @@ var DTableModule = (function (IFace, $) {
         },
         newModule: function (type, name, props) {
 
+            this.initModules();
+
             this.check(type);
 
             if (this.isExist(type, name))
@@ -82,6 +82,8 @@ var DTableModule = (function (IFace, $) {
             _modules[type][name] = IFace.get(type).extend(props);
         },
         extendModule: function (type, extend, newName, props) {
+
+            this.initModules();
 
             this.check(type);
 

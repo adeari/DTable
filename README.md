@@ -222,7 +222,23 @@ This modules used to format cells, you can add formatter options to column defin
 
 ### "simple"
 
-> escape html, no options
+> use one formatter widget to render the cell.
+
+>**options**
+>``` text
+    widget: <string>,               # default: string
+    widget_option: {}        # default: {escape: true}
+```
+
+-------------------------
+***Formatter widgets***
+
+### "string"
+
+> render a string in a cell
+>```
+    escape: <boolean>
+```
 
 -------------------------
 Dev requirements

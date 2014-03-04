@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function (grunt) {
-    var sourceFiles = ['src/dtable.interfaces.js', 'src/_interfaces/*.js' , 'src/dtable.modules.js', 'src/**/*.js'];
+    var sourceFiles = ['src/dtable.interfaces.js', 'src/dtable.modules.js', 'src/_interfaces/*.js' , 'src/**/*.js'];
     var webdir = "server/web"
     // Project configuration.
     grunt.initConfig({
