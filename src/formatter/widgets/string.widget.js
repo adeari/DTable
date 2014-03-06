@@ -17,7 +17,7 @@
                 return obj.entityMap[s];
             });
         },
-        getDefaults: function(){
+        defOptions: function(){
             return {
                 escape: true
             };

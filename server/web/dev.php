@@ -43,6 +43,10 @@
 
 <?php include __DIR__ . "/../_scripts.php" ?>
 
+<!-- required for number formatter -->
+<script src="js/numeral.min.js"></script>
+<script src="js/numeral.languages.min.js"></script>
+
 <script>
 
     $().ready(function () {
@@ -65,7 +69,10 @@
                 }
             },
             formatter: {
-                name: "simple"
+                name: "simple",
+                options: {
+                    widget: 'number'
+                }
             }
         });
     });

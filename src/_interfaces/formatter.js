@@ -2,7 +2,8 @@
 
     IFace.add('formatter', {
         init: function(options, dtable) {
-            this.options = $.extend(true, {}, this.getDefaults(), options);
+            var defaults = this.getDefaults();
+            this.options = $.extend(true, defaults, options);
             this.dtable = dtable;
             this.widgets = {};
         },

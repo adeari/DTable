@@ -2,8 +2,6 @@ It's a data table for jQuery. I made it to study grunt and it's first part of my
 It's uses html template to generate the table (it's not necessary to be a table, can be anything see "Custom template" example) and the whole plugin module based,
 so you can add new features easily.
 
-The built in template module uses [Nunjucks](http://jlongster.github.io/nunjucks/), you have to load it before DTable init.
-
 ***Examples***
 
 See [http://dtable.devdrive.org](http://dtable.devdrive.org)
@@ -11,6 +9,12 @@ See [http://dtable.devdrive.org](http://dtable.devdrive.org)
 ***Download***
 
 This repo is used for development, you can [download](http://dtable.devdrive.org/publish/DTable.v0.5.0.tar.gz) the latest stable release.
+
+***Dependencies***
+
+- jQuery 1.10+
+- [Nunjucks](http://jlongster.github.io/nunjucks/)
+- for number formatter widget: [numeraljs](http://numeraljs.com/)
 
 ***How to use***
 
