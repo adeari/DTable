@@ -8,10 +8,10 @@
  *
  * Created by Kubi; Licensed MIT
  */
-(function(DTableModule, $){
+(function (DTableModule, $) {
 
     DTableModule.newModule(DTableModule.MODULE_FORMATTER, "simple", {
-        getDefaults: function(){
+        getDefaults: function () {
             return {
                 widget: 'string',
                 widget_options: {
@@ -19,11 +19,13 @@
                 }
             };
         },
-        format: function(columnId, value) {
+        format: function (columnId, value) {
+
+            var options = this.getFormatterOption(columnId);
 
             return this
                 .getWidget(this.options.widget)
-                .format(value, this.options.widget_options);
+                .format(value, options);
         }
     });
 

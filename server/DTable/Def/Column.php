@@ -31,10 +31,13 @@ class Column extends Options
      * Options depend on selected formatter module.
      *
      * @param $value
+     * @return $this
      */
-    public function formatter(Options $value)
+    public function formatter($value)
     {
         $this->set("formatter", $value);
+
+        return $this;
     }
 
     /**

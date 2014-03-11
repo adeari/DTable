@@ -71,7 +71,7 @@
             formatter: {
                 name: "simple",
                 options: {
-                    widget: 'number'
+                    widget: 'string'
                 }
             }
         });
