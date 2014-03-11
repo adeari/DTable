@@ -23,9 +23,11 @@
 
             var options = this.getFormatterOption(columnId);
 
+            options = $.extend(true, {}, this.options, options);
+
             return this
-                .getWidget(this.options.widget)
-                .format(value, options);
+                .getWidget(options.widget)
+                .format(value, options.widget_options);
         }
     });
 

@@ -69,9 +69,12 @@
                 }
             },
             formatter: {
-                name: "simple",
+                name: "advanced",
                 options: {
-                    widget: 'string'
+                    widget: 'string',
+                    widget_options: {
+                        escape: true
+                    }
                 }
             }
         });

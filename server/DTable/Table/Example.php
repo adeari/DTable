@@ -14,7 +14,10 @@ class Example extends Table
         $this->addColumn("col_a", "Column A")
             ->order()
             ->formatter(array(
-                'escape' => false
+                'widget' => 'number',
+                'widget_options' => array(
+                    'force_number' => true
+                )
             ))
             ->attributes(array('class' => 'col-xs-3'));
 

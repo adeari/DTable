@@ -87,7 +87,17 @@ class BuildTable
         foreach ($this->def["columns"] as $colId => $colDef)
         {
             $colId = self::escape($colId);
-            $columns[] = "`{$colId}` varchar(250) DEFAULT NULL";
+
+            if (isset($colDef['formatter']['widget']) && $colDef['formatter']['widget'] == 'number')
+            {
+                $columns[] = "`{$colId}` double DEFAULT NULL";
+            }
+            else
+            {
+                $columns[] = "`{$colId}` varchar(250) DEFAULT NULL";
+            }
+
+
             $this->columns[] = $colId;
         }
 
@@ -114,7 +124,14 @@ class BuildTable
 
         foreach ($this->def['columns'] as $colId => $colDef)
         {
-            $values[] = $this->pdo->quote($this->getRandomString());
+            if (isset($colDef['formatter']['widget']) && $colDef['formatter']['widget'] == 'number')
+            {
+                $values[] = rand(-99999999, 99999999) / 1000;
+            }
+            else
+            {
+                $values[] = $this->pdo->quote($this->getRandomString());
+            }
         }
 
         $values = '(' . implode(',', $values) . ')';

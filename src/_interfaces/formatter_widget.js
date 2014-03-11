@@ -1,23 +1,21 @@
-(function(IFace, $){
+(function (IFace, $) {
 
     IFace.add('formatter_widget', {
-        init: function(options, dtable)
-        {
-            this.options = $.extend(true, {}, this.defOptions(), options);
+        init: function (options, dtable) {
             this.dtable = dtable;
         },
-        defOptions: function(){
+        defOptions: function () {
             return {};
         },
-        getOptions: function(options){
-            if (options != undefined)
-            {
-                return $.extend(true, {}, this.options, options);
+        getOptions: function (options) {
+
+            var result = this.defOptions();
+
+            if (options != undefined) {
+                result = $.extend(true, {}, this.defOptions(), options);
             }
-            else
-            {
-                return $.extend(true, {}, this.options);
-            }
+
+            return result;
         },
         format: function (value, options) {
             return value;

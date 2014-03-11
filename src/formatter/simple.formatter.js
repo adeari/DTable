@@ -23,6 +23,8 @@
 
             var options = this.getFormatterOption(columnId);
 
+            options = $.extend(true, {}, this.options.widget_options, options);
+
             return this
                 .getWidget(this.options.widget)
                 .format(value, options);
