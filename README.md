@@ -226,7 +226,7 @@ This modules used to format cells, you can add formatter options to column defin
 
 ### "simple"
 
-> use one formatter widget to render the cell.
+> use one formatter widget to render the table cells. widget_options can be set within column definition, too.
 
 >**options**
 >``` text
@@ -243,6 +243,18 @@ This modules used to format cells, you can add formatter options to column defin
 >```
     escape: <boolean>
 ```
+
+### "number"
+
+> render a number, requires [Numeral.js](http://numeraljs.com/)
+>```
+    {
+        number_format: '0,0.0',           # see numeral.js options
+        language: 'en',                   # numeral.js language option
+        force_number: false               # set it true to show 0 instead of string, for example "asdf" converted to 0
+    }
+```
+
 
 -------------------------
 Dev requirements
