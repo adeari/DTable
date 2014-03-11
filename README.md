@@ -226,7 +226,18 @@ This modules used to format cells, you can add formatter options to column defin
 
 ### "simple"
 
-> use one formatter widget to render the table cells. widget_options can be set within column definition, too.
+> use one formatter widget to render the table cells. widget_options can be set within column definition formatter option, too.
+
+>**options**
+>``` text
+    widget: <string>,               # default: string
+    widget_option: {}        # default: {escape: true}
+```
+
+### "advanced"
+
+> similar to simple formatter, the only difference is that you can define widget in column definition (different widget per col)
+> column definition formatter option equals with the module options
 
 >**options**
 >``` text
