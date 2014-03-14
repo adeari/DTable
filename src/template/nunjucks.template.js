@@ -24,70 +24,91 @@
             this.dtable = dtable;
             this.options = $.extend({}, defaults, options);
 
-            this.template = {
-                table:      false,
-                rows:       false,
-                pagination: false
-            };
+            this.templates = {};
+
+            this.addTemplate('table', this.options.table_template);
+            this.addTemplate('rows', this.options.rows_template);
+            this.addTemplate('pagination', this.options.pagination_template);
 
             this.env = new nunjucks.Environment(new nunjucks.WebLoader(this.options.view_dir));
+        },
+        addTemplate: function(templateName, templateFile)
+        {
+            if (this.templates[templateName] != undefined)
+            {
+                throw "template " + templateName + " is sexist";
+            }
+
+            this.templates[templateName] = {
+                file: templateFile,
+                template: false
+            };
+        },
+        /**
+         * return false if the template is not loaded
+         *
+         * @param templateName
+         */
+        getTemplate: function(templateName) {
+
+            if (this.templates[templateName] == undefined)
+            {
+                throw "template " + templateName + " is'nt exist.";
+            }
+
+            return this.templates[templateName].template;
         },
         loading: function (callback) {
 
             var obj = this;
 
-            function allLoaded(callback) {
-                if (obj.template.table && obj.template.rows && obj.template.pagination) {
-                    obj.isLoaded = true;
+            var checkLoaded = function(){
+                var ok = true;
+                $.each(obj.templates, function(templateName, options){
+                    if (!options.template)
+                    {
+                        ok = false;
+                    }
+                });
 
+                if (ok)
+                {
+                    obj.isLoaded = true;
+                    obj.dtable.logger.info("nunjucks.template.js: all loaded");
                     callback.call(obj.dtable);
                 }
-            }
+            };
 
-            this.env.getTemplate(this.options.table_template, function (err, tmpl) {
-                if (err) {
-                    obj.dtable.logger.error(err);
+            $.each(this.templates, function(templateName, options){
+                if (!options.template)
+                {
+                    obj.env.getTemplate(options.file, function(err, tmpl){
+                        if (err)
+                        {
+                            obj.dtable.logger.error(err);
+                        }
+                        else
+                        {
+                            obj.templates[templateName].template = tmpl;
+                            obj.dtable.logger.info("nunjucks.template.js: " + templateName + " is loaded");
+                            checkLoaded();
+                        }
+                    });
                 }
-                else {
-                    obj.dtable.logger.info("nunjucks.template.loading: " + obj.options.table_template + " is loaded");
-                    obj.template.table = tmpl;
-                    allLoaded(callback);
-                }
-            });
 
-            this.env.getTemplate(this.options.rows_template, function (err, tmpl) {
-                if (err) {
-                    obj.dtable.logger.error(err);
-                }
-                else {
-                    obj.dtable.logger.info("nunjucks.template.loading: " + obj.options.rows_template + " is loaded");
-                    obj.template.rows = tmpl;
-                    allLoaded(callback);
-                }
-            });
-
-            this.env.getTemplate(this.options.pagination_template, function (err, tmpl) {
-                if (err) {
-                    obj.dtable.logger.error(err);
-                }
-                else {
-                    obj.dtable.logger.info("nunjucks.template.loading: " + obj.options.pagination_template + " is loaded");
-                    obj.template.pagination = tmpl;
-                    allLoaded(callback);
-                }
             });
         },
         getTableHtml: function(params)
         {
-            return this.template.table.render(params);
+            return this.getTemplate("table").render(params);
         },
         getRowsHtml: function(params)
         {
-            return this.template.rows.render(params);
+            return this.getTemplate("rows").render(params);
         },
         getPaginationHtml: function(params)
         {
-            return this.template.pagination.render(params);
+            return this.getTemplate("pagination").render(params);
         }
     });
 

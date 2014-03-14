@@ -87,12 +87,12 @@ var DTableModule = (function (IFace, $) {
 
             this.check(type);
 
-            if (!this.isExist(type, name))
+            if (!this.isExist(type, extend))
             {
-                throw "DTableModule '" + name + "' doesn't exist.";
+                throw "DTableModule '" + extend + "' doesn't exist.";
             }
 
-            if (this.isExist(type, name)) {
+            if (this.isExist(type, newName)) {
                 throw "DTableModule " + newName + " already exist.";
             }
 

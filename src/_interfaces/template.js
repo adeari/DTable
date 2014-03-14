@@ -1,7 +1,26 @@
-(function(IFace){
+(function (IFace) {
 
     IFace.add('template', {
         isLoaded: false,
+        /**
+         * Add a template
+         *
+         * @param templateName
+         * @param templateFile
+         */
+        addTemplate: function (templateName, templateFile) {
+        },
+        /**
+         * return false if the template is not loaded
+         *
+         * @param templateName
+         */
+        getTemplate: function (templateName) {
+        },
+        /**
+         * Load unloaded templates
+         * @param callback
+         */
         loading: function (callback) {
         },
         /**

@@ -107,7 +107,6 @@
             }
         });
 
-
         $("#table").dtable({
             template: {
                 options: {
@@ -128,7 +127,7 @@
             formatter: {
                 name: "simple"
             }
-        }, "isotope");
+        }, 'isotope');
     });
 
 </script>

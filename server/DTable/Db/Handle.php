@@ -270,7 +270,7 @@ class Handle
 
         if (!$class)
         {
-            throw new \Exception("Invalid table");
+            throw new \Exception("Invalid table: {$table}");
         }
 
         return new $class;
