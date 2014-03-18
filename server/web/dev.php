@@ -54,7 +54,10 @@
         $("#table").dtable({
             template: {
                 options: {
-                    view_dir: '/js/DTable/views'
+                    view_dir: '/views',
+                    table_template: 'default/table.html',
+                    rows_template: 'default/rows.html',
+                    pagination_template: 'default/pagination.html'
                 }
             },
             definition: {
@@ -70,6 +73,7 @@
             },
             formatter: {
                 name: "advanced",
+                // this is the default config, we can override it in definition config
                 options: {
                     widget: 'string',
                     widget_options: {

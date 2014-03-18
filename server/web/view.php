@@ -110,7 +110,10 @@
         $("#table").dtable({
             template: {
                 options: {
-                    view_dir: '/template/div_view'
+                    view_dir: '/views',
+                    table_template: 'div_view/table.html',
+                    rows_template: 'div_view/rows.html',
+                    pagination_template: 'div_view/pagination.html'
                 }
             },
             definition: {
@@ -123,9 +126,6 @@
                 options: {
                     url: "/source.php?table=example_03"
                 }
-            },
-            formatter: {
-                name: "simple"
             }
         }, 'isotope');
     });

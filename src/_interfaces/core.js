@@ -37,8 +37,10 @@
                     options: {}
                 },
                 formatter: {
-                    name: false,
-                    options: {}
+                    name: "advanced",
+                    options: {
+                        widget: "string"
+                    }
                 }
             };
 

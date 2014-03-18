@@ -4,6 +4,7 @@ node_modules
 server/web/js/*
 server/web/css/*
 server/web/fonts/*
+server/web/default/*
 config/Config.php
 build/*
 tmp/*

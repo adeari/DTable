@@ -11,23 +11,32 @@
 (function (DTableModule, $) {
 
     DTableModule.newModule(DTableModule.MODULE_FORMATTER, "simple", {
-        getDefaults: function () {
-            return {
+        init: function(options, dtable){
+
+            var defaults = {
                 widget: 'string',
                 widget_options: {
                     escape: true
                 }
             };
+
+            this.options = $.extend(true, {}, defaults, options);
+            this.dtable = dtable;
+
+            this.widget = false;
         },
-        format: function (columnId, value) {
+        initWidget: function(){
+            if (this.widget == false)
+            {
+                this.widget = DTableModule.getModule(DTableModule.MODULE_FORMATTER_WIDGET, this.options.widget, this.options.widget_options, this.dtable);
+            }
+        },
+        format: function (columnId, value, values) {
 
-            var options = this.getFormatterOption(columnId);
+            this.initWidget();
 
-            options = $.extend(true, {}, this.options.widget_options, options);
-
-            return this
-                .getWidget(this.options.widget)
-                .format(value, options);
+            return this.widget
+                .format(columnId, value, values);
         }
     });
 

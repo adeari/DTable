@@ -13,6 +13,8 @@
     DTableModule.newModule(DTableModule.MODULE_CORE, "firefly", {
         configure: function () {
 
+            var obj = this;
+
             // init modules
             this.definition = DTableModule.getModule(DTableModule.MODULE_DEFINITION, this.options.definition.name, this.options.definition.options, this);
             this.pagination = DTableModule.getModule(DTableModule.MODULE_PAGINATION, this.options.pagination.name, this.options.pagination.options, this);
@@ -22,18 +24,18 @@
             this.search = DTableModule.getModule(DTableModule.MODULE_SEARCH, this.options.search.name, this.options.search.name, this);
             this.loading = DTableModule.getModule(DTableModule.MODULE_LOADING, this.options.loading.name, this.options.loading.options, this);
             this.order = DTableModule.getModule(DTableModule.MODULE_ORDER, this.options.order.name, this.options.order.options, this);
-
-            if (this.options.formatter.name) {
-                this.formatter = DTableModule.getModule(DTableModule.MODULE_FORMATTER, this.options.formatter.name, this.options.formatter.options, this);
-            }
-            else {
-                this.formatter = false;
-            }
+            this.formatter = false;
 
             this.loading.startLoading();
 
-            this.definition.loading(this.loaded);
-            this.template.loading(this.loaded);
+            this.definition.loading(function(){
+
+                // formatters need access to definition module
+                // and we need to load it before templates
+                obj.formatter = DTableModule.getModule(DTableModule.MODULE_FORMATTER, obj.options.formatter.name, obj.options.formatter.options, obj);
+
+                obj.template.loading(obj.loaded);
+            });
         },
         /**
          * Everything is loaded? Then start rendering.
@@ -89,13 +91,11 @@
             var rows = this.source.getRows();
             var formatter = this.formatter;
 
-            if (formatter) {
-                $.each(rows, function (rowIndex, row) {
-                    $.each(row, function (colId, cell) {
-                        rows[rowIndex][colId] = formatter.format(colId, cell);
-                    });
+            $.each(rows, function (rowIndex, row) {
+                $.each(row, function (colId, cell) {
+                    rows[rowIndex][colId] = formatter.format(colId, cell, row);
                 });
-            }
+            });
 
             var html = this.template.getRowsHtml({
                 "rows": rows,

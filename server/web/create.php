@@ -110,9 +110,7 @@
 
     // extend module
     DTableModule.extendModule(DTableModule.MODULE_FORMATTER, "simple", "new_module_name", {
-        format: function(colId, value){
-            // you can call parent function with _super
-            value = this._super(colId, value);
+        format: function(colId, value, values){
 
             return colId + this.options.separator + value;
         }

@@ -1,6 +1,6 @@
 {
     "name":            "DTable",
-    "version":         "0.5.0",
+    "version":         "0.5.1",
     "description":     "Data Table Plugin",
     "keywords":        [
         "jquery-plugin"

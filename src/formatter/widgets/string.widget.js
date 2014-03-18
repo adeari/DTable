@@ -17,16 +17,14 @@
                 return obj.entityMap[s];
             });
         },
-        defOptions: function(){
+        getDefaults: function(){
             return {
                 escape: true
             };
         },
-        format: function (value, options) {
+        format: function (columnId, value, values) {
 
-            options = this.getOptions(options);
-
-            if (options.escape)
+            if (this.options.escape)
             {
                 return this.escapeHTML(value);
             }

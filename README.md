@@ -236,8 +236,10 @@ This modules used to format cells, you can add formatter options to column defin
 
 ### "advanced"
 
-> similar to simple formatter, the only difference is that you can define widget in column definition (different widget per col)
+> similar to simple formatter, the only difference is that you can define formatter widget to use in
+> column definition (different widget per col)
 > column definition formatter option equals with the module options
+> this is the default formatter.
 
 >**options**
 >``` text

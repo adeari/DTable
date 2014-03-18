@@ -39,6 +39,7 @@ module.exports = function (grunt) {
                 files: [
                     {expand: true, cwd: 'build', src: ['**'], dest: webdir + '/js/<%= pkg.name %>/'},
                     {expand: true, cwd: 'src', src: ['**'], dest: webdir + '/js/src/'},
+                    {expand: true, cwd: 'views', src: ['**'], dest: webdir + '/views/default'},
                     {src: "bower_components/jquery/jquery.js", dest: "<%= webdir %>/js/jquery.js"},
                     {src: "bower_components/numeral/min/numeral.min.js", dest: "<%= webdir %>/js/numeral.min.js"},
                     {src: "bower_components/numeral/min/languages.min.js", dest: "<%= webdir %>/js/numeral.languages.min.js"},

@@ -36,6 +36,13 @@ class Example extends Table
 
         $this->addColumn("col_e", "Column E")
             ->filter("")
+            ->formatter(array(
+                "widget" => "partial",
+                "widget_options" => array(
+                    "template_name" => "example",
+                    "template" => "custom/columnExample.html"
+                )
+            ))
             ->attributes(array('class' => 'col-xs-2'));
     }
 }
