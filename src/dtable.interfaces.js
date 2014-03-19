@@ -1,3 +1,13 @@
+/*
+ *  DTable
+ *  ======
+ *
+ * https://github.com/kubanka-peter/dtable
+ *
+ * Contributors: Kubi
+ *
+ * Created by Kubi; Licensed MIT
+ */
 var DTableInterfaces = (function ($) {
 
     /* Simple JavaScript Inheritance

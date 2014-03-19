@@ -32,6 +32,14 @@
                 <h1>DTable <small>showing all built in features</small></h1>
             </div>
 
+            <p>
+                "Column A" using number formatter widget, "Column E" using partial formatter widget, other columns using string formatter widget. See page source code.
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
             <div id="table">
                 <div data-dtable="loading" class="loading">
                     Loading...

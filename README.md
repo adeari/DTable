@@ -2,6 +2,14 @@ It's a data table for jQuery. I made it to study grunt and it's first part of my
 It's uses html template to generate the table (it's not necessary to be a table, can be anything see "Custom template" example) and the whole plugin module based,
 so you can add new features easily.
 
+New features in the last version:
+- formatter widgets (string, number, partial)
+
+**If you are using this plugin, pleas send me the webpage address and I will put it on this page. If you want to correct my english, please fell free
+to contribute to the project on github :)**
+
+================
+
 ***Examples***
 
 See [http://dtable.devdrive.org](http://dtable.devdrive.org)
@@ -244,7 +252,7 @@ This modules used to format cells, you can add formatter options to column defin
 >**options**
 >``` text
     widget: <string>,               # default: string
-    widget_option: {}        # default: {escape: true}
+    widget_option: {}               # default: {escape: true}
 ```
 
 -------------------------
@@ -265,6 +273,15 @@ This modules used to format cells, you can add formatter options to column defin
         number_format: '0,0.0',           # see numeral.js options
         language: 'en',                   # numeral.js language option
         force_number: false               # set it true to show 0 instead of string, for example "asdf" converted to 0
+    }
+```
+
+### "partial"
+
+> It's use the given template to render a cell
+>```
+    {
+        template: <string>                  # template inside view dir (see default template module)
     }
 ```
 
@@ -289,7 +306,7 @@ after clone, run update.sh to update npm and bower modules.
 Plans
 -------
 
-- advanced formatter (string, partial, image)
+- new homepage with wiki
 - a new loader module
 - better error handling
 - editable rows
