@@ -68,8 +68,8 @@
                     <div class="col-lg-12">
                         <h1 id="home">Data Table for jQuery</h1>
                         <div class="sec-row">
-                            DTable v0.5
-                            <a href="/publish/DTable.v0.5.0.tar.gz" class="btn btn-primary btn-lg btn-labeled download-button">
+                            DTable v0.5.1
+                            <a href="/publish/DTable.v0.5.1.tar.gz" class="btn btn-primary btn-lg btn-labeled download-button">
                                 <span class="btn-label"><i class="fa fa-floppy-o"></i></span>Download
                             </a>
                             <a href="https://github.com/kubanka-peter/DTable" class="btn btn-default btn-lg btn-labeled" target="_blank">
