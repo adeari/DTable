@@ -16,7 +16,7 @@ See [http://dtable.devdrive.org](http://dtable.devdrive.org)
 
 ***Download***
 
-This repo is used for development, you can [download](http://dtable.devdrive.org/publish/DTable.v0.5.0.tar.gz) the latest stable release.
+This repo is used for development, you can [download](http://dtable.devdrive.org/publish/DTable.v0.5.1.tar.gz) the latest stable release.
 
 ***Dependencies***
 
