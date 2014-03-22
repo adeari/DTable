@@ -40,6 +40,10 @@
          * @param params
          */
         getPaginationHtml: function (params) {
+        },
+        getHtml: function(template, params)
+        {
+
         }
     });
 

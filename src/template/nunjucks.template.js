@@ -98,17 +98,21 @@
 
             });
         },
+        getHtml: function(template, params)
+        {
+            return this.getTemplate(template).render(params);
+        },
         getTableHtml: function(params)
         {
-            return this.getTemplate("table").render(params);
+            return this.getHtml("table", params);
         },
         getRowsHtml: function(params)
         {
-            return this.getTemplate("rows").render(params);
+            return this.getHtml("rows", params);
         },
         getPaginationHtml: function(params)
         {
-            return this.getTemplate("pagination").render(params);
+            return this.getHtml("pagination", params);
         }
     });
 

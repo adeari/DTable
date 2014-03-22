@@ -21,8 +21,6 @@
 
             this.templateName = "partial_" + this.options.column_id;
             this.dtable.template.addTemplate(this.templateName, this.options.template);
-
-            this.template = false;
         },
         getDefaults: function () {
             return {
@@ -31,16 +29,10 @@
         },
         format: function (columnId, value, values) {
 
-            if (this.template === false)
-            {
-                this.template = this.dtable.template.getTemplate(this.templateName);
-            }
-
-            return this.template.render({
+            return this.dtable.template.getHtml(this.templateName, {
                 value: value,
                 column_id: columnId,
-                values: values,
-                xy: function(){ return "a"}
+                values: values
             });
         }
     });
