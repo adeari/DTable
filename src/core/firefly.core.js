@@ -88,15 +88,18 @@
          */
         renderRows: function () {
 
+            var columns = this.definition.getColumns();
             var rows = this.source.getRows();
             var formatter = this.formatter;
 
-            $.each(rows, function (rowIndex, row) {
-                $.each(row, function (colId, cell) {
-                    rows[rowIndex][colId] = formatter.format(colId, cell, row);
-                });
-            });
-
+            for (var rowIndex in rows)
+            {
+                for (var colId in columns)
+                {
+                    rows[rowIndex][colId] = formatter.format(colId, rows[rowIndex][colId], rows[rowIndex]);
+                }
+            }
+            
             var html = this.template.getRowsHtml({
                 "rows": rows,
                 "columns": this.definition.getColumns()
