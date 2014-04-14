@@ -5,7 +5,7 @@ so you can add new features easily.
 New features in the last version:
 - formatter widgets (string, number, partial)
 
-**If you are using this plugin, pleas send me the webpage address (info at devdrive.org) and I will put it on this page. If you want to correct my english, please fell free
+**If you are using this plugin, pleas send me the webpage address (kubanka.peter at gmail dot com) and I will put it on this page. If you want to correct my english, please fell free
 to contribute to the project on github :)**
 
 ================

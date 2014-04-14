@@ -1,3 +1,7 @@
+# v0.5.2
+- rows can contain extra fields like id
+
+
 # v0.5.1
 
 - refactoring (interface manager)
